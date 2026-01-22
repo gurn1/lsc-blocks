@@ -23,9 +23,6 @@ if( ! class_exists('HYBClass') ) {
 
     public function __construct() {
       self::constants();
-      
-      // include translations
-      add_action('plugins_loaded', [__CLASS__, 'translations']);
 
       // add controllers
       self::init_controllers();
@@ -114,16 +111,6 @@ if( ! class_exists('HYBClass') ) {
       printf('<script type="text/javascript">var HYB_API = %s</script>', $api_params);
     
     }
-
-    /**
-     * Include translations
-     * 
-     * @since 1.0.0
-     */
-    public static function translations() {
-      load_plugin_textdomain( 'hiyield-blocks', false, HYB_FILE . '/languages');
-    }
-
 
     /**
      * Define the constant if it's not already set
