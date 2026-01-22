@@ -1,0 +1,15 @@
+# Log files
+*.log
+
+.DS_Store
+**/.DS_Store
+
+# Dependency directories
+node_modules/
+
+# Output of `npm pack`
+*.tgz
+
+*.zip
+
+.env

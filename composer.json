@@ -1,0 +1,19 @@
+{
+    "name": "hy/blocks",
+    "description": "",
+    "type": "project",
+    "license": "GPLv3",
+    "autoload": {
+        "psr-4": {
+            "hy\\blocks\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Luke Clifton",
+            "email": "luke@lscwebdesign.co.uk"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

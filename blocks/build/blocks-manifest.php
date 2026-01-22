@@ -1,0 +1,28 @@
+<?php
+// This file is generated. Do not modify it manually.
+return array(
+	'projects-grid' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'hiyield-blocks/projects-grid',
+		'version' => '0.1.0',
+		'title' => 'Projects Grid',
+		'category' => 'widgets',
+		'icon' => 'grid-view',
+		'description' => 'Add a grid of projects in a 3 column layout. The items are pulled from the Projects post type.',
+		'example' => array(
+			
+		),
+		'supports' => array(
+			'html' => false,
+			'interactivity' => true
+		),
+		'textdomain' => 'hiyield-blocks',
+		'editorScript' => 'file:./index.js',
+		'editorStyle' => 'file:./index.css',
+		'style' => 'file:./style-index.css',
+		'render' => 'file:./render.php',
+		'viewScript' => 'file:./view.js',
+		'viewScriptModule' => 'file:./view.js'
+	)
+);
