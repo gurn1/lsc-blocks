@@ -33,7 +33,7 @@ $projects = HYBControllerProjects::instance(); // phpcs:ignore WordPress.NamingC
 >
 	<?php $projects->filtering_template(); ?>
 
-	<div class="hiyield-projects-grid" data-wp-bind--hidden="context.isLoading">
+	<div class="hiyield-projects-grid">
 		<?php $projects->grid_template(); ?>
 	</div>
 
