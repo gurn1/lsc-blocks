@@ -14,8 +14,11 @@ Add custom Gutenberg blocks, including a dynamic Project Archive block
 
 == Description ==
 
-**Hiyield Blocks** is built using an MVC architecture with a PSR-4 autoloading through Composer. This approach clearly separates responsibilities and makes it easy to scale, keeping the code organized, maintainable, and structured. All code within the 'app' dir follows this MVC pattern.
-Currently, the plugin includes one gutenberg block located in the blocks/src dir, Additional blocks can be added easily as needed. The included block, `projects-grid`, displays custom post type data in a responsive grid format.
+Hiyield Blocks is built using an MVC architecture with PSR-4 autoloading through Composer. This structure keeps the codebase clean and well-organised, which is something I personally value when working on scalable WordPress projects. Separating concerns into models, views, and controllers makes the system easier to reason about, extend, and maintain over time.
+
+Where appropriate, abstract classes are used to enforce consistency and shared behaviour across components, helping ensure predictable structure as the plugin grows.
+
+Currently, the plugin includes a single Gutenberg block located in the blocks/src directory. Additional blocks can be added easily using the same pattern (for example, a map widget). The included block, projects-grid, displays custom post type data in a responsive grid format.
 
 == Key Features ==
 
@@ -49,7 +52,8 @@ From the admin panel:
 
 == Other Notes ==
 
-This plugin passes WordPress Plugin Check standards and is ready for repository submission. Frontend accessibility has been tested using the Silktide extension.
+* This plugin passes WordPress Plugin Check standards and is ready for repository submission. Frontend accessibility has been tested using the Silktide extension.
+* All user-facing strings use WordPress i18n functions, making the plugin suitable for multilingual environments.
 
 == Changelog == 
 
