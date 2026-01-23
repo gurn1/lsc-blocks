@@ -30,9 +30,29 @@ if( ! defined( 'HYB_FILE' ) ) {
 require __DIR__ . '/vendor/autoload.php';
 
 
-  /**
-   * Instantiate main plugin class
-   * 
-   * @since 1.0.0
-   */
-  \hy\blocks\app\core\HYBClass::instance();
+/**
+ * Instantiate main plugin class
+ * 
+ * @since 1.0.0
+ */
+\hy\blocks\app\core\HYBClass::instance();
+
+/**
+ * Plugin Activation 
+ * 
+ * @since 1.0.0
+ */
+function HYB_plugin_activation() {
+  update_option('hyb_plugin_activation', true);
+}
+register_activation_hook(__FILE__, 'HYB_plugin_activation');
+
+/**
+ * Plugin Deactivation
+ * 
+ * @since 1.0.0
+ */
+function HYB_plugin_deactivation() {
+  flush_rewrite_rules();
+}
+register_deactivation_hook(__FILE__, 'HYB_plugin_deactivation');

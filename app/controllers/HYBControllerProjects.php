@@ -60,6 +60,11 @@ class HYBControllerProjects {
         );
       }
     }
+
+    if( get_option('hyb_plugin_activation') ) {
+      flush_rewrite_rules();
+      delete_option('hyb_plugin_activation');
+    }
   }
 
   /**
