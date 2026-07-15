@@ -15,5 +15,5 @@ if( ! defined('ABSPATH')) {
     <?php continue; ?>
   <?php endif; ?>
 
-  <?php require HYB_VIEWS . 'partials/card.php'; ?>
+  <?php require LSC_VIEWS . 'partials/card.php'; ?>
 <?php endforeach; ?>

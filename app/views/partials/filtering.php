@@ -10,12 +10,12 @@ if( ! defined('ABSPATH')) {
 }
 ?>
 
-<div class="hiyield-filter-group" aria-label="<?php echo esc_attr__('Filter posts by category', 'hiyield-blocks'); ?>">
+<div class="lsc-filter-group" aria-label="<?php echo esc_attr__('Filter posts by category', 'lsc-blocks'); ?>">
   <div>  
-    <label for="hiyield-product-grid-filter-select" class="sr-only"><?php echo esc_html__('Filter projects by category', 'hiyield-blocks'); ?></label>
-    <select id="hiyield-product-grid-filter-select" data-taxonomy="<?php echo esc_attr($taxonomy); ?>" data-wp-on--change="actions.fetchGridData" data-wp-bind--value="context.selectedCategory"
+    <label for="lsc-product-grid-filter-select" class="sr-only"><?php echo esc_html__('Filter projects by category', 'lsc-blocks'); ?></label>
+    <select id="lsc-product-grid-filter-select" data-taxonomy="<?php echo esc_attr($taxonomy); ?>" data-wp-on--change="actions.fetchGridData" data-wp-bind--value="context.selectedCategory"
     >
-      <option value=""><?php echo esc_html_x('All', 'filter-option', 'hiyield-blocks'); ?></option>
+      <option value=""><?php echo esc_html_x('All', 'filter-option', 'lsc-blocks'); ?></option>
       <?php foreach ( $terms as $term ) : ?>
         <option value="<?php echo esc_attr( $term->slug ); ?>">
           <?php echo esc_html( $term->name ); ?>

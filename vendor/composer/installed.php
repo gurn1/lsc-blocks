@@ -1,19 +1,19 @@
 <?php return array(
     'root' => array(
-        'name' => 'hy/blocks',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'name' => 'lsc/blocks',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'ddb27c9eba7ff31f256046c7fa3a96956dece87d',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        'hy/blocks' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+        'lsc/blocks' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'ddb27c9eba7ff31f256046c7fa3a96956dece87d',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

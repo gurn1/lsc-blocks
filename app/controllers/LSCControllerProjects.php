@@ -5,16 +5,16 @@
  * @since 1.0.0
  */
 
-namespace hy\blocks\app\controllers;
+namespace lsc\blocks\app\controllers;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-use hy\blocks\app\models\HYBModelProjects;
-use hy\blocks\app\routes\HYBRouteProjects;
+use lsc\blocks\app\models\LSCModelProjects;
+use lsc\blocks\app\routes\LSCRouteProjects;
 
-class HYBControllerProjects {
+class LSCControllerProjects {
 
   protected static $_instance = null;
   
@@ -46,10 +46,10 @@ class HYBControllerProjects {
    * @since 1.0.0
    */
   public static function register_post_types() {
-    $post_type_name = HYBModelProjects::$post_type_name;
-    $taxonomies = HYBModelProjects::taxonomies();
+    $post_type_name = LSCModelProjects::$post_type_name;
+    $taxonomies = LSCModelProjects::taxonomies();
 
-    register_post_type($post_type_name, HYBModelProjects::post_type_args());
+    register_post_type($post_type_name, LSCModelProjects::post_type_args());
 
     if( !empty($taxonomies) ) {
       foreach($taxonomies as $taxonomy) {
@@ -61,9 +61,9 @@ class HYBControllerProjects {
       }
     }
 
-    if( get_option('hyb_plugin_activation') ) {
+    if( get_option('lsc_plugin_activation') ) {
       flush_rewrite_rules();
-      delete_option('hyb_plugin_activation');
+      delete_option('lsc_plugin_activation');
     }
   }
 
@@ -73,7 +73,7 @@ class HYBControllerProjects {
    * @since 1.0.0
    */
   public static function register_routes() {
-    new HYBRouteProjects();
+    new LSCRouteProjects();
   }
 
   /**
@@ -114,13 +114,13 @@ class HYBControllerProjects {
    * @return string|false
    */
   public function filtering_template($taxonomy = 'service_area', $args = []) {
-    $terms =  HYBModelProjects::get_taxonomy_terms($taxonomy, $args);
+    $terms =  LSCModelProjects::get_taxonomy_terms($taxonomy, $args);
 
     if( empty($terms) && !is_array($terms) ) {
       return false;
     }
     
-    require HYB_VIEWS . 'partials/filtering.php';
+    require LSC_VIEWS . 'partials/filtering.php';
   }
 
   /**
@@ -130,13 +130,13 @@ class HYBControllerProjects {
    * @return string|false
    */
   public function grid_template($params = [], $taxonomy = 'service_area') {
-    $items = HYBModelProjects::get_items($params);
+    $items = LSCModelProjects::get_items($params);
 
     if( empty($items) || !is_array($items) ) {
-      echo esc_html__('No Items Found', 'hiyield-blocks');
+      echo esc_html__('No Items Found', 'lsc-blocks');
       return false;
     }
 
-    require HYB_VIEWS . 'partials/grid.php';
+    require LSC_VIEWS . 'partials/grid.php';
   }
 }

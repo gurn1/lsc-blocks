@@ -1,6 +1,6 @@
 import { store, getContext } from '@wordpress/interactivity';
 
-store('hiyield-projects-grid-wrapper', {
+store('lsc-projects-grid-wrapper', {
   state: {
     isLoading: false,
   },
@@ -10,8 +10,8 @@ store('hiyield-projects-grid-wrapper', {
       const selected = event.target.value;
       const taxonomy = event.target.dataset.taxonomy;
       
-      const wrapper = event.target.closest('.wp-block-hiyield-blocks-projects-grid');
-      const gridEl = wrapper?.querySelector('.hiyield-projects-grid');
+      const wrapper = event.target.closest('.wp-block-lsc-blocks-projects-grid');
+      const gridEl = wrapper?.querySelector('.lsc-projects-grid');
 
       if(!gridEl) {
         console.warn('Grid element not found in the DOM.');
@@ -27,14 +27,14 @@ store('hiyield-projects-grid-wrapper', {
         gridEl.innerHTML = '';
 
         try {
-          const url = new URL(`${HYB_API.root}projects-grid`);
+          const url = new URL(`${LSC_API.root}projects-grid`);
           url.searchParams.set('category', selected);
           url.searchParams.set('taxonomy', taxonomy);
 
           const response = await fetch(url.toString(), {
             headers: { 
               "content-type": "application/json",
-              "X-WP-Nonce": HYB_API.nonce
+              "X-WP-Nonce": LSC_API.nonce
             }
           });
           const data = await response.json();
@@ -56,7 +56,7 @@ store('hiyield-projects-grid-wrapper', {
 });
 
 function filterCardsByTerm(gridEl, selectedTerm) {
-  const cards = gridEl.querySelectorAll('.hiyield-project-card');
+  const cards = gridEl.querySelectorAll('.lsc-project-card');
 
   if(cards) {
     cards.forEach((card) => {

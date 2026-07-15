@@ -1,7 +1,7 @@
 {
-	"name": "hiyield-blocks",
+	"name": "lsc-blocks",
 	"version": "0.1.0",
-	"description": "Scaffold blocks for Hiyield-blocks.",
+	"description": "Scaffold blocks for lsc-blocks.",
 	"author": "gurn1",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",

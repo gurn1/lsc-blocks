@@ -5,17 +5,17 @@
  * @version 1.0.0
  */
 
-namespace hy\blocks\app\abstracts;
+namespace lsc\blocks\app\abstracts;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-abstract class HYBAbstractRoute {
+abstract class LSCAbstractRoute {
   /**
    * Define the path
    */
-  protected string $path = 'hiyield-blocks';
+  protected string $path = 'lsc-blocks';
 
   /**
    * Define the route version

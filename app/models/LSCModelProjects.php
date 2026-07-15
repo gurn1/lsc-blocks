@@ -5,15 +5,15 @@
  * @since 1.0.0
  */
 
-namespace hy\blocks\app\models;
+namespace lsc\blocks\app\models;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-class HYBModelProjects {
+class LSCModelProjects {
 
-  public static string $post_type_name = 'hyblocks-projects';
+  public static string $post_type_name = 'lscblocks-projects';
 
   /**
    * Define the post type arguments
@@ -23,7 +23,7 @@ class HYBModelProjects {
    */
   public static function post_type_args() {
     return [
-      'label' => __('Projects', 'hiyield-blocks'),
+      'label' => __('Projects', 'lsc-blocks'),
       'public' => true,
       'supports' => ['title', 'editor', 'thumbnail', 'excerpt']
     ];
@@ -41,7 +41,7 @@ class HYBModelProjects {
         'taxonomy' => 'service_area',
         'object_type' => static::$post_type_name,
         'args' => [
-          'label' => __('Service Areas', 'hiyield-blocks'),
+          'label' => __('Service Areas', 'lsc-blocks'),
           'public' => true,
           'hierarchical' => true
         ]

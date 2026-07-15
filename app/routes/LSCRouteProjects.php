@@ -5,16 +5,16 @@
  * @version 1.0.0
  */
 
-namespace hy\blocks\app\routes;
+namespace lsc\blocks\app\routes;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-use hy\blocks\app\abstracts\HYBAbstractRoute;
-use hy\blocks\app\controllers\HYBControllerProjects;
+use lsc\blocks\app\abstracts\LSCAbstractRoute;
+use lsc\blocks\app\controllers\LSCControllerProjects;
 
-class HYBRouteProjects extends HYBAbstractRoute {
+class LSCRouteProjects extends LSCAbstractRoute {
 
   protected $controller;
   
@@ -28,7 +28,7 @@ class HYBRouteProjects extends HYBAbstractRoute {
   }
 
   public function get_grid_request($request) {
-    $this->controller = HYBControllerProjects::instance();
+    $this->controller = LSCControllerProjects::instance();
     
     return $this->controller->get_grid_rest_request($request);
   }

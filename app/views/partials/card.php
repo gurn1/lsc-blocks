@@ -14,12 +14,12 @@ $terms = get_the_terms($item->ID, $taxonomy); // phpcs:ignore WordPress.NamingCo
 $tax_terms = $terms ? wp_list_pluck($terms, 'slug') : []; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 ?>
 
-<article class="hiyield-project-card" data-tax="<?php echo esc_attr(join(',', $tax_terms)); ?>">
+<article class="lsc-project-card" data-tax="<?php echo esc_attr(join(',', $tax_terms)); ?>">
   <a href="<?php echo esc_url(get_permalink($item->ID)); ?>">
     <?php if($thumbnail_id) : ?>
       <img class="grid-card-featured-image" src="<?php echo esc_url(wp_get_attachment_image_url($thumbnail_id, 'medium')); ?>" alt="<?php echo esc_attr($item->post_title . ' thumbnail'); ?>">
     <?php else : ?>
-      <div class="grid-card-featured-image no-image"><?php echo esc_html__('No Image Found', 'hiyield-blocks'); ?></div>
+      <div class="grid-card-featured-image no-image"><?php echo esc_html__('No Image Found', 'lsc-blocks'); ?></div>
     <?php endif; ?>
     
     <h3 class="grid-card-title"><?php echo esc_html($item->post_title); ?></h3>

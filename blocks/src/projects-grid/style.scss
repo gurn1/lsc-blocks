@@ -5,13 +5,13 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-hiyield-blocks-projects-grid {
+.wp-block-lsc-blocks-projects-grid {
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
 	margin: 16px 0;
 	padding: 20px 2px 14px;
 
-	.hiyield-projects-grid {
+	.lsc-projects-grid {
 		border-top: 1px solid #000;
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
@@ -75,7 +75,7 @@
 
 	}
 
-	.hiyield-projects-loader {
+	.lsc-projects-loader {
 		margin: 12px 0;
 		text-align: center;
 

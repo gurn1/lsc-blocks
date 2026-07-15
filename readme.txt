@@ -1,4 +1,4 @@
-=== Hiyield Blocks ===
+=== LSC Blocks ===
 Contributors: gurn1
 Author: Luke Clifton
 Author URI: https://www.lscwebdesign.co.uk
@@ -14,7 +14,7 @@ Add custom Gutenberg blocks, including a dynamic Project Archive block
 
 == Description ==
 
-Hiyield Blocks is built using an MVC architecture with PSR-4 autoloading through Composer. This structure keeps the codebase clean and well-organised, which is something I personally value when working on scalable WordPress projects. Separating concerns into models, views, and controllers makes the system easier to understand, extend, and maintain over time.
+LSC Blocks is built using an MVC architecture with PSR-4 autoloading through Composer. This structure keeps the codebase clean and well-organised, which is something I personally value when working on scalable WordPress projects. Separating concerns into models, views, and controllers makes the system easier to understand, extend, and maintain over time.
 
 Where appropriate, abstract classes are used to enforce consistency and shared behaviour across components, helping ensure predictable structure as the plugin grows.
 
@@ -24,7 +24,7 @@ Currently, the plugin includes a single Gutenberg block located in the blocks/sr
 
 * Custom Post Type: "Projects"
 * Custom Taxonomy: "Service Areas"
-* REST Route: "projects-grid" at "hiyield-blocks/v1/"
+* REST Route: "projects-grid" at "lsc-blocks/v1/"
 * Block widget: "Projects Grid"
 
 == Installation ==
@@ -37,7 +37,7 @@ Alternatively:
 1. Upload the plugin zip file through Plugins > Add New > Upload Plugin.
 2. Click **Install Now** and then **Activate Plugin**.
 
-*Please ensure the main folder name matches the plugin slug "hiyield-blocks" before zipping for deployment. GitHub ZIPs often append the branch name, which can prevent proper installation.*
+*Please ensure the main folder name matches the plugin slug "lsc-blocks" before zipping for deployment. GitHub ZIPs often append the branch name, which can prevent proper installation.*
 
 == How to Use ==
 

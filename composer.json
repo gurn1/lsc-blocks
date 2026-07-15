@@ -1,11 +1,11 @@
 {
-    "name": "hy/blocks",
+    "name": "lsc/blocks",
     "description": "",
     "type": "project",
     "license": "GPLv3",
     "autoload": {
         "psr-4": {
-            "hy\\blocks\\": ""
+            "lsc\\blocks\\": ""
         }
     },
     "authors": [

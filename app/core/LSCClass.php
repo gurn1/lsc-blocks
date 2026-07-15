@@ -5,19 +5,19 @@
  * @version 1.0.0
  */
 
-namespace hy\blocks\app\core;
+namespace lsc\blocks\app\core;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('HYBClass') ) {
-  class HYBClass {
+if( ! class_exists('LSCClass') ) {
+  class LSCClass {
     public static $version = '1.0.0';
 
-    public static $name = 'Hiyield Blocks';
+    public static $name = 'LSC Blocks';
 
-    public static $slug = 'hiyield-blocks';
+    public static $slug = 'lsc-blocks';
 
 	  protected static $_instance = null;
 
@@ -48,13 +48,13 @@ if( ! class_exists('HYBClass') ) {
      */
     public static function constants() {
       // absolute path
-      self::define( 'HYB_ABSPATH', trailingslashit(dirname(HYB_FILE)) );
+      self::define( 'LSC_ABSPATH', trailingslashit(dirname(LSC_FILE)) );
       // admin url
-      self::define( 'HYB_URL', self::plugin_url() );
+      self::define( 'LSC_URL', self::plugin_url() );
       // path to blocks
-      self::define( 'HYB_BLOCK_PATH', trailingslashit(HYB_ABSPATH . 'blocks'));
+      self::define( 'LSC_BLOCK_PATH', trailingslashit(LSC_ABSPATH . 'blocks'));
       // path to views
-      self::define( 'HYB_VIEWS', trailingslashit(HYB_ABSPATH . 'app/views'));
+      self::define( 'LSC_VIEWS', trailingslashit(LSC_ABSPATH . 'app/views'));
     }
 
     /**
@@ -75,7 +75,7 @@ if( ! class_exists('HYBClass') ) {
      */
     public static function init_controllers() {
       // init projects controller
-      \hy\blocks\app\controllers\HYBControllerProjects::instance();
+      \lsc\blocks\app\controllers\LSCControllerProjects::instance();
     }
 
     /**
@@ -85,12 +85,12 @@ if( ! class_exists('HYBClass') ) {
      */
     public static function register_blocks() {
       if ( function_exists( 'wp_register_block_metadata_collection' ) ) {
-        wp_register_block_metadata_collection( HYB_BLOCK_PATH . 'build', HYB_BLOCK_PATH . 'build/blocks-manifest.php' );
+        wp_register_block_metadata_collection( LSC_BLOCK_PATH . 'build', LSC_BLOCK_PATH . 'build/blocks-manifest.php' );
       }
 
-      $manifest_data = require HYB_BLOCK_PATH . 'build/blocks-manifest.php';
+      $manifest_data = require LSC_BLOCK_PATH . 'build/blocks-manifest.php';
       foreach ( array_keys( $manifest_data ) as $block_type ) {
-        register_block_type( HYB_BLOCK_PATH . "build/{$block_type}" );
+        register_block_type( LSC_BLOCK_PATH . "build/{$block_type}" );
       }
     }
 
@@ -103,12 +103,12 @@ if( ! class_exists('HYBClass') ) {
     public static function add_inline_scripts() {
 
       $api_params = wp_json_encode([
-        'root' => esc_url_raw( rest_url('hiyield-blocks/v1/') ),
+        'root' => esc_url_raw( rest_url('lsc-blocks/v1/') ),
         'nonce' => sanitize_text_field(wp_create_nonce('wp_rest')),
       ]);
       
       // phpcs:ignore WordPress.Security.EscapeOutput
-      printf('<script type="text/javascript">var HYB_API = %s</script>', $api_params);
+      printf('<script type="text/javascript">var LSC_API = %s</script>', $api_params);
     
     }
 
@@ -130,7 +130,7 @@ if( ! class_exists('HYBClass') ) {
      * @return string
      */
     public static function plugin_url() {
-      return trailingslashit( plugins_url( '/', HYB_FILE ) );
+      return trailingslashit( plugins_url( '/', LSC_FILE ) );
     }
   }
 }

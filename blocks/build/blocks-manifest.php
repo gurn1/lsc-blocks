@@ -4,7 +4,7 @@ return array(
 	'projects-grid' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
-		'name' => 'hiyield-blocks/projects-grid',
+		'name' => 'lsc-blocks/projects-grid',
 		'version' => '0.1.0',
 		'title' => 'Projects Grid',
 		'category' => 'widgets',
@@ -17,7 +17,7 @@ return array(
 			'html' => false,
 			'interactivity' => true
 		),
-		'textdomain' => 'hiyield-blocks',
+		'textdomain' => 'lsc-blocks',
 		'editorScript' => 'file:./index.js',
 		'editorStyle' => 'file:./index.css',
 		'style' => 'file:./style-index.css',
