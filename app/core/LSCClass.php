@@ -7,6 +7,8 @@
 
 namespace lsc\blocks\app\core;
 
+use \lsc\blocks\apps\controllers\LSCControllerProjects;
+
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
@@ -20,6 +22,10 @@ if( ! class_exists('LSCClass') ) {
     public static $slug = 'lsc-blocks';
 
 	  protected static $_instance = null;
+
+    protected static array $controllers = [
+      LSCControllerProjects::class
+    ]
 
     public function __construct() {
       self::constants();
@@ -74,8 +80,10 @@ if( ! class_exists('LSCClass') ) {
      * @since 1.0.0
      */
     public static function init_controllers() {
-      // init projects controller
-      \lsc\blocks\app\controllers\LSCControllerProjects::instance();
+      foreach ( static::$controllers as $controller_class ) {
+        $model_class = str_replace('Controler', 'Model', $controller_class);
+        new $controller_class( new $model_class() );
+      }
     }
 
     /**
