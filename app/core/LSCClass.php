@@ -7,7 +7,7 @@
 
 namespace lsc\blocks\app\core;
 
-use \lsc\blocks\apps\controllers\LSCControllerProjects;
+use \lsc\blocks\app\controllers\LSCControllerProjects;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -25,7 +25,7 @@ if( ! class_exists('LSCClass') ) {
 
     protected static array $controllers = [
       LSCControllerProjects::class
-    ]
+    ];
 
     public function __construct() {
       self::constants();
