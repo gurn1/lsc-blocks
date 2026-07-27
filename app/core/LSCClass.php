@@ -8,6 +8,7 @@
 namespace lsc\blocks\app\core;
 
 use \lsc\blocks\app\controllers\LSCControllerProjects;
+use \lsc\blocks\app\models\LSCModelProjects;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -21,7 +22,7 @@ if( ! class_exists('LSCClass') ) {
 
     public static $slug = 'lsc-blocks';
 
-	  protected static $_instance = null;
+	  protected static $instances = [];
 
     protected static array $controllers = [
       LSCControllerProjects::class
@@ -40,13 +41,6 @@ if( ! class_exists('LSCClass') ) {
       add_action('wp_footer', [__CLASS__, 'add_inline_scripts']);
     }
 
-    public static function instance() {
-      if ( is_null( self::$_instance ) ) {
-        self::$_instance = new self();
-      }
-      return self::$_instance;
-    }
-
     /**
      * Set constants
      * 
@@ -58,9 +52,16 @@ if( ! class_exists('LSCClass') ) {
       // admin url
       self::define( 'LSC_URL', self::plugin_url() );
       // path to blocks
-      self::define( 'LSC_BLOCK_PATH', trailingslashit(LSC_ABSPATH . 'blocks'));
+      self::define( 'LSC_BLOCK_PATH', trailingslashit(LSC_ABSPATH . 'blocks') );
       // path to views
-      self::define( 'LSC_VIEWS', trailingslashit(LSC_ABSPATH . 'app/views'));
+      self::define( 'LSC_VIEWS', trailingslashit(LSC_ABSPATH . 'app/views') );
+
+      // Routes
+      self::define( 'LSC_ROUTE_VERSION', 'v1' );
+      self::define( 'LSC_ROUTE_PATH', 'lsc-blocks' );
+
+      // Options
+      self::define( 'LSC_OPTIONS', 'lsc_blocks_options');
     }
 
     /**
@@ -81,9 +82,16 @@ if( ! class_exists('LSCClass') ) {
      */
     public static function init_controllers() {
       foreach ( static::$controllers as $controller_class ) {
-        $model_class = str_replace('Controler', 'Model', $controller_class);
-        new $controller_class( new $model_class() );
+        static::$instances[$controller_class] = new $controller_class();
       }
+    }
+
+    /**
+     * Fetch an already-bootstrapped controller instance. Views should use
+     * this instead of instantiating a controller themselves.
+     */
+    public static function controller( string $controller_class ) {
+      return static::$instances[$controller_class] ?? null;
     }
 
     /**

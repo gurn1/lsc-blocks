@@ -11,33 +11,33 @@ if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
+use lsc\blocks\app\abstracts\LSCAbstractController;
 use lsc\blocks\app\models\LSCModelProjects;
 use lsc\blocks\app\routes\LSCRouteProjects;
 
-class LSCControllerProjects {
+class LSCControllerProjects extends LSCAbstractController {
 
-  protected static $_instance = null;
+  public static function identifier(): string {
+    return 'projects';
+  }
+
+  protected static function model_class(): string {
+    return LSCModelProjects::class;
+  }
   
-  public function __construct() {
-    self::run();
-  }
-
-  public static function instance() {
-    if ( is_null( self::$_instance ) ) {
-      self::$_instance = new self();
-    }
-    return self::$_instance;
-  }
+  // public function __construct() {
+  //   self::run();
+  // }
 
   /**
    * Everything required on start
    * 
    * @since 1.0.0
    */
-  public static function run() {
-    add_action('init', [self::class, 'register_post_types']);
+  public function register(): void {
 
-    self::register_routes();
+    $this->register_post_type();
+    $this->register_routes();
   }
 
   /**
@@ -45,11 +45,12 @@ class LSCControllerProjects {
    * 
    * @since 1.0.0
    */
-  public static function register_post_types() {
-    $post_type_name = LSCModelProjects::$post_type_name;
-    $taxonomies = LSCModelProjects::taxonomies();
+  public function register_post_type() {
 
-    register_post_type($post_type_name, LSCModelProjects::post_type_args());
+    $post_type_name = $this->model::$post_type_name;
+    $taxonomies = $this->model->taxonomies();
+
+    register_post_type($post_type_name, $this->model::post_type_args());
 
     if( !empty($taxonomies) ) {
       foreach($taxonomies as $taxonomy) {
@@ -81,7 +82,7 @@ class LSCControllerProjects {
    * 
    * @since 1.0.0
    */
-  public function get_grid_rest_request($request) {
+  protected function request($request): array {
     $category = sanitize_text_field($request->get_param('category'));
     $taxonomy = sanitize_text_field($request->get_param('taxonomy'));
     $args = [];
@@ -114,7 +115,7 @@ class LSCControllerProjects {
    * @return string|false
    */
   public function filtering_template($taxonomy = 'service_area', $args = []) {
-    $terms =  LSCModelProjects::get_taxonomy_terms($taxonomy, $args);
+    $terms =  $this->model->get_taxonomy_terms($taxonomy, $args);
 
     if( empty($terms) && !is_array($terms) ) {
       return false;
@@ -130,7 +131,7 @@ class LSCControllerProjects {
    * @return string|false
    */
   public function grid_template($params = [], $taxonomy = 'service_area') {
-    $items = LSCModelProjects::get_items($params);
+    $items = $this->model->get_items($params);
 
     if( empty($items) || !is_array($items) ) {
       echo esc_html__('No Items Found', 'lsc-blocks');

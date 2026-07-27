@@ -29,13 +29,14 @@ if( ! defined( 'LSC_FILE' ) ) {
  */
 require __DIR__ . '/vendor/autoload.php';
 
+use \lsc\blocks\app\core\LSCClass;
 
 /**
  * Instantiate main plugin class
  * 
  * @since 1.0.0
  */
-\lsc\blocks\app\core\LSCClass::instance();
+new LSCClass();
 
 /**
  * Plugin Activation 

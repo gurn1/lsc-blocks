@@ -11,17 +11,16 @@ if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-class LSCModelProjects {
+use lsc\blocks\app\abstracts\LSCAbstractModel;
+
+class LSCModelProjects extends LSCAbstractModel {
 
   public static string $post_type_name = 'lscblocks-projects';
 
   /**
    * Define the post type arguments
-   * 
-   * @since 1.0.0
-   * @return array
    */
-  public static function post_type_args() {
+  public static function post_type_args(): array {
     return [
       'label' => __('Projects', 'lsc-blocks'),
       'public' => true,
@@ -31,11 +30,8 @@ class LSCModelProjects {
 
   /**
    * Define taxonomies for the post type
-   * 
-   * @since 1.0.0
-   * @return array
    */
-  public static function taxonomies() {
+  public static function taxonomies(): array {
     return [
       [
         'taxonomy' => 'service_area',
@@ -49,37 +45,4 @@ class LSCModelProjects {
     ];
   }
 
-  /**
-   * Get items
-   * 
-   * @since 1.0.0
-   * @return array|WP_Error
-   */
-  public static function get_items($args = []) {
-    $defaults = [
-      'post_type' => static::$post_type_name,
-      'posts_per_page' => -1,
-    ];
-
-    $args = wp_parse_args($args, $defaults);
-
-    return get_posts($args);
-  }
-
-  /**
-   * Get Taxonomy terms
-   * 
-   * @since 1.0.0
-   * @return array|WP_Error
-   */
-  public static function get_taxonomy_terms($taxonomy, $args = []) {
-    $defaults = [
-      'taxonomy' => $taxonomy,
-      'hide_empty' => false
-    ];
-
-    $args = wp_parse_args( $args, $defaults );
-
-    return get_terms($args);
-  }
 }

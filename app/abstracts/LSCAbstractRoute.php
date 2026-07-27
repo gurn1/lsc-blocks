@@ -15,12 +15,12 @@ abstract class LSCAbstractRoute {
   /**
    * Define the path
    */
-  protected string $path = 'lsc-blocks';
+  protected string $path = LSC_ROUTE_PATH;
 
   /**
    * Define the route version
    */
-  protected string $version = 'v1';
+  protected string $version = LSC_ROUTE_VERSION;
 
   function __construct() {
      add_action('rest_api_init', [$this, 'register']);

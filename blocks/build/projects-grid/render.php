@@ -14,8 +14,14 @@ if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
+use lsc\blocks\app\core\LSCClass;
 use lsc\blocks\app\controllers\LSCControllerProjects;
-$projects = LSCControllerProjects::instance(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+
+$projects = LSCClass::controller( LSCControllerProjects::class );
+
+if( ! $projects ) :
+  return;
+endif;
 ?>
 
 <section
