@@ -15,14 +15,13 @@ abstract class LSCAbstractController {
 
   protected LSCAbstractModel $model;
 
-  final public function __construct( LSCAbstractModel $model = null ) {
-
-    if( ! $this->is_enabled() ) {
-      return; // disable the block
-    }
-
+  final public function __construct( ?LSCAbstractModel $model = null ) {
     $model_class = static::model_class();
     $this->model = $model ?? new $model_class();
+
+    if ( ! $this->is_enabled() ) {
+      return;
+    }
 
     $this->boot();
   }
