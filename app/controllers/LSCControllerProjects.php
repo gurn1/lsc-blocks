@@ -13,7 +13,6 @@ if( ! defined('ABSPATH')) {
 
 use lsc\blocks\app\abstracts\LSCAbstractController;
 use lsc\blocks\app\models\LSCModelProjects;
-use lsc\blocks\app\routes\LSCRouteProjects;
 
 class LSCControllerProjects extends LSCAbstractController {
 
@@ -25,19 +24,8 @@ class LSCControllerProjects extends LSCAbstractController {
     return LSCModelProjects::class;
   }
   
-  // public function __construct() {
-  //   self::run();
-  // }
-
-  /**
-   * Everything required on start
-   * 
-   * @since 1.0.0
-   */
   public function register(): void {
-
     $this->register_post_type();
-    $this->register_routes();
   }
 
   /**
@@ -56,7 +44,7 @@ class LSCControllerProjects extends LSCAbstractController {
       foreach($taxonomies as $taxonomy) {
         register_taxonomy(
           $taxonomy['taxonomy'],
-          $taxonomy['object_type'] ?? [static::$post_type_name],
+          $taxonomy['object_type'] ?? [$post_type_name],
           $taxonomy['args'] ?? []
         );
       }
@@ -68,44 +56,46 @@ class LSCControllerProjects extends LSCAbstractController {
     }
   }
 
-  /**
-   * Register routes
-   * 
-   * @since 1.0.0
-   */
-  public static function register_routes() {
-    new LSCRouteProjects();
+  public static function route(): ?array {
+    return [
+      'endpoint' => 'projects-grid',
+      'methods'  => 'GET'
+    ];
   }
 
   /**
-   * Handle request
+   * Request
+   */
+  public function request( \WP_REST_Request $request ): array {
+    $category = sanitize_text_field( $request->get_param('category') );
+    $taxonomy = sanitize_text_field( $request->get_param('taxonomy') );
+
+    if ( ! $category ) {
+      return [];
+    }
+
+    return [
+      'tax_query' => [[
+        'taxonomy' => $taxonomy,
+        'field'    => 'slug',
+        'terms'    => $category,
+      ]],
+    ];
+  }
+
+  /**
+   * Handle response
    * 
    * @since 1.0.0
    */
-  protected function request($request): array {
-    $category = sanitize_text_field($request->get_param('category'));
-    $taxonomy = sanitize_text_field($request->get_param('taxonomy'));
-    $args = [];
-
-    if( $category ) {
-      $args = [
-        'tax_query' => [
-          [
-            'taxonomy' => $taxonomy,
-            'field'    => 'slug',
-            'terms'    => $category,
-          ],
-        ],
-      ];
-    }
+  public function response( \WP_REST_Request  $data ): \WP_REST_Response {
+    $args = $this->request( $data );
 
     ob_start();
-    $this->grid_template($args);
-    $grid_html = ob_get_clean();
+    $this->grid_template( $args );
+    $html = ob_get_clean();
 
-    return rest_ensure_response([
-      'gridHtml'   => $grid_html,
-    ]);
+    return rest_ensure_response( [ 'html' => $html ] );
   }
 
   /**

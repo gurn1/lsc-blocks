@@ -8,7 +8,6 @@
 namespace lsc\blocks\app\core;
 
 use \lsc\blocks\app\controllers\LSCControllerProjects;
-use \lsc\blocks\app\models\LSCModelProjects;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -22,7 +21,7 @@ if( ! class_exists('LSCClass') ) {
 
     public static $slug = 'lsc-blocks';
 
-	  protected static $instances = [];
+	  protected static array $instances = [];
 
     protected static array $controllers = [
       LSCControllerProjects::class
@@ -72,7 +71,6 @@ if( ! class_exists('LSCClass') ) {
     public static function init() {
       // add block manifest data 
       self::register_blocks();
-
     }
 
     /**
@@ -82,7 +80,14 @@ if( ! class_exists('LSCClass') ) {
      */
     public static function init_controllers() {
       foreach ( static::$controllers as $controller_class ) {
-        static::$instances[$controller_class] = new $controller_class();
+        $controller = new $controller_class();
+        static::$instances[$controller_class] = $controller;
+
+        $route_config = $controller_class::route();
+
+        if( $route_config !== null ) {
+          new LSCRoute( $controller, $route_config );
+        }
       }
     }
 
@@ -119,7 +124,7 @@ if( ! class_exists('LSCClass') ) {
     public static function add_inline_scripts() {
 
       $api_params = wp_json_encode([
-        'root' => esc_url_raw( rest_url('lsc-blocks/v1/') ),
+        'root' => esc_url_raw( rest_url( trailingslashit(LSC_ROUTE_PATH) . LSC_ROUTE_VERSION . '/' ) ),
         'nonce' => sanitize_text_field(wp_create_nonce('wp_rest')),
       ]);
       

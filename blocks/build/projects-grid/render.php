@@ -31,7 +31,7 @@ endif;
   <?php // phpcs:ignore WordPress.Security.EscapeOutput
 	echo wp_interactivity_data_wp_context([
     'selectedCategory'  => '',
-    'gridHtml'          => '',
+    'html'          => '',
     'isLoading'         => false,
     'noItemsMessage'    => esc_html__('No items found', 'lsc-blocks'),
     'errorMessage'      => esc_html__('Something went wrong', 'lsc-blocks') 

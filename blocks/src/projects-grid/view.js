@@ -39,8 +39,8 @@ store('lsc-projects-grid-wrapper', {
           });
           const data = await response.json();
         
-          if (data && typeof data.gridHtml === 'string' && data.gridHtml.trim() !== '') {
-            gridEl.innerHTML = data.gridHtml;
+          if (data && typeof data.html === 'string' && data.html.trim() !== '') {
+            gridEl.innerHTML = data.html;
           } else {
             gridEl.innerHTML = '<p>'+context.noItemsMessage+'</p>';
           } 

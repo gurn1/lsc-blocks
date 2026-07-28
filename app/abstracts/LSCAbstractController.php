@@ -33,6 +33,14 @@ abstract class LSCAbstractController {
   }
 
   /**
+   * REST route config, if this block exposes one. Return null if it doesn't need a REST endpoint at all
+   * e.g static block
+   */
+  public static function route(): ?array {
+    return null;
+  }
+
+  /**
    * Whether this block is switched on. Stored as a single option holding
    * an array of enabled block keys, so toggling doesn't need one
    * option row per block.
@@ -54,10 +62,7 @@ abstract class LSCAbstractController {
   abstract public static function identifier(): string;
   
   abstract public function register(): void;
-  abstract protected function request( \WP_Rest_Request $request ): array;
-
-  public function response( \WP_Rest_Request $request ) {
-
-  }
+  abstract public function request( \WP_Rest_Request $request ): array;
+  abstract public function response( \WP_Rest_Request $request ): \WP_REST_Response;
 
 }
