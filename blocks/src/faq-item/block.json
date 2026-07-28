@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lsc-blocks/faq-item",
+	"version": "0.1.0",
+	"title": "FAQ Item",
+	"category": "widgets",
+	"parent": ["lsc-blocks/faq-accordion"],
+	"attributes": {
+		"question": { 
+      "type": "string", 
+      "default": ""
+    },
+    "answer": { 
+      "type": "string", 
+      "default": ""
+    },
+    "category": { 
+      "type": "string", 
+      "default": "" 
+    }
+	},
+	"textdomain": "lsc-blocks",
+	"editorScript": "file:./index.js"
+}
