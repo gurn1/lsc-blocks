@@ -91,8 +91,14 @@ if ( empty($rendered_items) ) {
           <?php echo $item['question']; ?>
         </button>
       </h3>
-      <div class="lsc-faq-answer" data-wp-bind--hidden="!state.isItemOpen">
-        <?php echo $item['answer']; ?>
+      <div
+        class="lsc-faq-answer"
+        data-wp-class--is-open="state.isItemOpen"
+        data-wp-bind--inert="!state.isItemOpen"
+      >
+        <div class="lsc-faq-answer-content">
+          <?php echo $item['answer']; ?>
+        </div>
       </div>
     </div>
   <?php endforeach; ?>

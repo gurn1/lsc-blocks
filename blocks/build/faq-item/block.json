@@ -23,7 +23,10 @@
     }
   },
   "usesContext": [
-    "lsc-blocks/faqCategories"
+    "lsc-blocks/faqCategories",
+    "lsc-blocks/faqTextAlign",
+    "lsc-blocks/faqFontFamily",
+    "lsc-blocks/faqHeadingLevel"
   ],
   "textdomain": "lsc-blocks",
   "editorScript": "file:./index.js"

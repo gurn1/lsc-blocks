@@ -1,91 +1,155 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
+.wp-block-lsc-blocks-faq-accordion {
+  --lsc-faq-border-color: currentColor;
+  --lsc-faq-accent-color: #1e1e1e;
+  --lsc-faq-radius: 4px;
+  --lsc-faq-transition-speed: 0.2s;
 
-.wp-block-lsc-blocks-projects-grid {
-	border-top: 1px solid #000;
-	border-bottom: 1px solid #000;
-	margin: 16px 0;
-	padding: 20px 2px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--lsc-faq-item-spacing, 16px);
 
-	.lsc-projects-grid {
-		border-top: 1px solid #000;
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 12px;
-		margin-top: 20px;
-		padding-top: 20px;
+  .lsc-faq-filter {
+    margin-bottom: calc(var(--lsc-faq-spacing) / 2);
 
-		@media (max-width: 860px) {
-    	grid-template-columns: repeat(2, 1fr);
-  	}
+    select {
+      width: 100%;
+      max-width: 20rem;
+      padding: 0.5em 0.75em;
+      border: 1px solid var(--lsc-faq-border-color);
+      border-radius: var(--lsc-faq-radius);
+      background: transparent;
+      color: inherit;
+      font: inherit;
+    }
+  }
 
-		@media (max-width: 440px) {
-    	grid-template-columns: 1fr;
-  	}
-		
-		article {
-			padding:10px 10px 14px;
-			border: 1px solid #eff0e9;
-			transition: all 0.2s ease-in;
+  .lsc-faq-item {
+    border: 1px solid color-mix(in srgb, var(--lsc-faq-border-color) 25%, transparent);
+    border-radius: var(--lsc-faq-radius);
+    overflow: hidden;
 
-			&:hover {
-				scale: 1.05;
-			}
+    > * {
+      margin-bottom: 0
+    }
 
-			> a {
-				text-decoration: none;
-			}
+    &[hidden] {
+      display: none;
+    }
+  }
 
-			.grid-card-featured-image {
-				aspect-ratio: 1/1;
-				display: block;
-				margin-bottom: 6px;
-				object-fit: cover;
-				width: 100%;
+  .lsc-faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75em;
+    width: 100%;
+    padding: 1em 1.25em;
+    background: transparent;
+    border: none;
+    font: inherit;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    color: inherit;
 
-				&.no-image {
-					align-items: center;
-					background: #f4f4f3;
-					color: #000;
-					display: flex;
-					font-size: 14px;
-					justify-content: center;
-				}
-			}
+    &::after {
+      content: '';
+      flex-shrink: 0;
+      width: 0.6em;
+      height: 0.6em;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      transition: transform var(--lsc-faq-transition-speed) ease;
+    }
 
+    &[aria-expanded="true"]::after {
+      transform: rotate(-135deg);
+    }
 
-			.grid-card-title {
-				font-size: 18px;
-				margin: 0;
-				font-weight: 600;
-			}
+    &:focus-visible {
+      outline: 2px solid var(--lsc-faq-accent-color);
+      outline-offset: -2px;
+    }
 
-			.grid-card-content {
-				color: #111;
-				font-size: 14px;
-				line-height: 1;
-				margin: 0;
-				padding-top: 8px;
-			}
-		}
+    &:hover {
+      background: color-mix(in srgb, var(--lsc-faq-accent-color) 6%, transparent);
+    }
+  }
 
-	}
+  .lsc-faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--lsc-faq-transition-speed) ease;
 
-	.lsc-projects-loader {
-		margin: 12px 0;
-		text-align: center;
+    &.is-open {
+      grid-template-rows: 1fr;
+    }
 
-		> span {
-			display: inline-block;
-			font-size: 20px;
-			font-weight: 600;
-			background: #000;
-			color: #fff;
-			padding: 4px 10px; 
-		}
-	}
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .lsc-faq-answer-content {
+    overflow: hidden;
+    padding: 1.25em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lsc-faq-question::after {
+      transition: none;
+    }
+  }
+
+	// "Minimal" - no boxes, just a divider between items
+  &.is-style-minimal {
+    .lsc-faq-item {
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--lsc-faq-border-color) 20%, transparent);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .lsc-faq-question {
+      padding: 1em 0;
+
+      &:hover {
+        background: transparent;
+        color: var(--lsc-faq-accent-color);
+      }
+    }
+
+    .lsc-faq-answer {
+      padding: 0 0 1.25em;
+    }
+  }
+
+  // "Card" - elevated, more breathing room
+  &.is-style-card {
+    gap: calc(var(--lsc-faq-spacing) * 1.25);
+
+    .lsc-faq-item {
+      border: none;
+      border-radius: calc(var(--lsc-faq-radius) * 2);
+      box-shadow: 0 1px 3px color-mix(in srgb, var(--lsc-faq-border-color) 15%, transparent),
+                  0 1px 2px color-mix(in srgb, var(--lsc-faq-border-color) 10%, transparent);
+    }
+
+    .lsc-faq-question {
+      padding: 1.25em 1.5em;
+      font-weight: 700;
+
+      &:hover {
+        background: color-mix(in srgb, var(--lsc-faq-accent-color) 4%, transparent);
+      }
+    }
+
+    .lsc-faq-answer {
+      padding: 0 1.5em 1.5em;
+    }
+  }
 }

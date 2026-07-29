@@ -20,14 +20,42 @@ return array(
 				'default' => array(
 					
 				)
+			),
+			'textAlign' => array(
+				'type' => 'string',
+				'default' => 'left'
+			),
+			'itemSpacing' => array(
+				'type' => 'number',
+				'default' => 16
+			),
+			'fontFamily' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'headingLevel' => array(
+				'type' => 'number',
+				'default' => 3
 			)
 		),
 		'providesContext' => array(
-			'lsc-blocks/faqCategories' => 'categories'
+			'lsc-blocks/faqCategories' => 'categories',
+			'lsc-blocks/faqTextAlign' => 'textAlign',
+			'lsc-blocks/faqFontFamily' => 'fontFamily',
+			'lsc-blocks/faqHeadingLevel' => 'headingLevel'
 		),
 		'supports' => array(
 			'html' => false,
-			'interactivity' => true
+			'interactivity' => true,
+			'typography' => array(
+				'fontSize' => true,
+				'fontFamily' => true,
+				'lineHeight' => true
+			),
+			'color' => array(
+				'text' => true,
+				'background' => true
+			)
 		),
 		'textdomain' => 'lsc-blocks',
 		'editorScript' => 'file:./index.js',
@@ -61,7 +89,10 @@ return array(
 			)
 		),
 		'usesContext' => array(
-			'lsc-blocks/faqCategories'
+			'lsc-blocks/faqCategories',
+			'lsc-blocks/faqTextAlign',
+			'lsc-blocks/faqFontFamily',
+			'lsc-blocks/faqHeadingLevel'
 		),
 		'textdomain' => 'lsc-blocks',
 		'editorScript' => 'file:./index.js'

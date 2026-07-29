@@ -9,6 +9,9 @@ import { __ } from '@wordpress/i18n';
 export default function Edit({ attributes, setAttributes, context }) {
   const { question, answer, category } = attributes;
   const categories = context['lsc-blocks/faqCategories'] || [];
+  const textAlign = context['lsc-blocks/faqTextAlign'] || 'left';
+  const headingLevel = context['lsc-blocks/faqHeadingLevel'] || 3;
+  const HeadingTag = `h${headingLevel}`;
 
   return (
     <>
@@ -26,14 +29,18 @@ export default function Edit({ attributes, setAttributes, context }) {
         </PanelBody>
       </InspectorControls>
 
-      <div {...useBlockProps({ className: 'lsc-faq-item' })}>
+      <div {...useBlockProps({
+          className: 'lsc-faq-item',
+          style: {
+            textAlign,
+          },
+        })}
+      >
         <RichText
-          tagName="h3"
+          tagName={HeadingTag}
           className="lsc-faq-question"
           value={question}
           onChange={(value) => setAttributes({ question: value })}
-          placeholder={__('Add question…', 'lsc-blocks')}
-          allowedFormats={['core/bold', 'core/italic']}
         />
 
         <RichText

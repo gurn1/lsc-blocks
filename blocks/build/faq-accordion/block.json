@@ -15,14 +15,42 @@
     "categories": {
       "type": "array",
       "default": []
+    },
+    "textAlign": {
+      "type": "string",
+      "default": "left"
+    },
+    "itemSpacing": {
+      "type": "number",
+      "default": 16
+    },
+    "fontFamily": {
+      "type": "string",
+      "default": ""
+    },
+    "headingLevel": {
+      "type": "number",
+      "default": 3
     }
   },
   "providesContext": {
-    "lsc-blocks/faqCategories": "categories"
+    "lsc-blocks/faqCategories": "categories",
+    "lsc-blocks/faqTextAlign": "textAlign",
+    "lsc-blocks/faqFontFamily": "fontFamily",
+    "lsc-blocks/faqHeadingLevel": "headingLevel"
   },
   "supports": {
     "html": false,
-    "interactivity": true
+    "interactivity": true,
+    "typography": {
+      "fontSize": true,
+      "fontFamily": true,
+      "lineHeight": true
+    },
+    "color": {
+      "text": true,
+      "background": true
+    }
   },
   "textdomain": "lsc-blocks",
   "editorScript": "file:./index.js",
