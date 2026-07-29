@@ -11,7 +11,14 @@
     "allowMultipleOpen": {
       "type": "boolean",
       "default": false
+    },
+    "categories": {
+      "type": "array",
+      "default": []
     }
+  },
+  "providesContext": {
+    "lsc-blocks/faqCategories": "categories"
   },
   "supports": {
     "html": false,

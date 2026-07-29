@@ -14,7 +14,16 @@ return array(
 			'allowMultipleOpen' => array(
 				'type' => 'boolean',
 				'default' => false
+			),
+			'categories' => array(
+				'type' => 'array',
+				'default' => array(
+					
+				)
 			)
+		),
+		'providesContext' => array(
+			'lsc-blocks/faqCategories' => 'categories'
 		),
 		'supports' => array(
 			'html' => false,
@@ -50,6 +59,9 @@ return array(
 				'type' => 'string',
 				'default' => ''
 			)
+		),
+		'usesContext' => array(
+			'lsc-blocks/faqCategories'
 		),
 		'textdomain' => 'lsc-blocks',
 		'editorScript' => 'file:./index.js'

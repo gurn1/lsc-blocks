@@ -8,7 +8,11 @@
 	"icon": "editor-help",
 	"description": "A list of expandable questions and answers, with schema.org markup for SEO.",
 	"attributes": {
-		"allowMultipleOpen": { "type": "boolean", "default": false }
+		"allowMultipleOpen": { "type": "boolean", "default": false },
+		"categories": { "type": "array", "default": [] }
+	},
+	"providesContext": {
+		"lsc-blocks/faqCategories": "categories"
 	},
 	"supports": {
 		"html": false,

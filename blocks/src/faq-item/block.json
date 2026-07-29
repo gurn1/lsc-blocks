@@ -20,6 +20,7 @@
       "default": "" 
     }
 	},
+	"usesContext": ["lsc-blocks/faqCategories"],
 	"textdomain": "lsc-blocks",
 	"editorScript": "file:./index.js"
 }
