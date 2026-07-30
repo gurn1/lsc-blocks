@@ -9,7 +9,7 @@
   gap: var(--lsc-faq-item-spacing, 16px);
 
   .lsc-faq-filter {
-    margin-bottom: calc(var(--lsc-faq-spacing) / 2);
+    margin-bottom: calc(var(--lsc-faq-item-spacing, 16px) / 2);
 
     select {
       width: 100%;
@@ -20,6 +20,7 @@
       background: transparent;
       color: inherit;
       font: inherit;
+      text-align: left;
     }
   }
 
@@ -48,7 +49,6 @@
     border: none;
     font: inherit;
     font-weight: 600;
-    text-align: left;
     cursor: pointer;
     color: inherit;
 
@@ -91,7 +91,13 @@
     }
   }
 
+  .lsc-faq-question-text {
+    flex: 1;
+    text-align: var(--lsc-faq-text-align, left);
+  }
+
   .lsc-faq-answer-content {
+    text-align: var(--lsc-faq-text-align, left);
     overflow: hidden;
     padding: 1.25em;
   }
@@ -130,7 +136,7 @@
 
   // "Card" - elevated, more breathing room
   &.is-style-card {
-    gap: calc(var(--lsc-faq-spacing) * 1.25);
+    gap: calc(var(--lsc-faq-item-spacing, 16px) * 1.25);
 
     .lsc-faq-item {
       border: none;

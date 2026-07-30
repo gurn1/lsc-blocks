@@ -9,7 +9,6 @@ import { __ } from '@wordpress/i18n';
 export default function Edit({ attributes, setAttributes, context }) {
   const { question, answer, category } = attributes;
   const categories = context['lsc-blocks/faqCategories'] || [];
-  const textAlign = context['lsc-blocks/faqTextAlign'] || 'left';
   const headingLevel = context['lsc-blocks/faqHeadingLevel'] || 3;
   const HeadingTag = `h${headingLevel}`;
 
@@ -29,23 +28,21 @@ export default function Edit({ attributes, setAttributes, context }) {
         </PanelBody>
       </InspectorControls>
 
-      <div {...useBlockProps({
-          className: 'lsc-faq-item',
-          style: {
-            textAlign,
-          },
-        })}
-      >
-        <RichText
-          tagName={HeadingTag}
-          className="lsc-faq-question"
-          value={question}
-          onChange={(value) => setAttributes({ question: value })}
-        />
+      <div {...useBlockProps({ className: 'lsc-faq-item' })}>
+        <HeadingTag className="lsc-faq-question">
+          <RichText
+            tagName="span"
+            className="lsc-faq-question-text"
+            value={question}
+            onChange={(value) => setAttributes({ question: value })}
+            placeholder={__('Add question…', 'lsc-blocks')}
+            allowedFormats={['core/bold', 'core/italic']}
+          />
+        </HeadingTag>
 
         <RichText
           tagName="div"
-          className="lsc-faq-answer"
+          className="lsc-faq-answer-content"
           value={answer}
           onChange={(value) => setAttributes({ answer: value })}
           placeholder={__('Add answer…', 'lsc-blocks')}

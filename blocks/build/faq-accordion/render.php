@@ -6,10 +6,21 @@ if( ! defined('ABSPATH')) {
 $allow_multiple = ! empty($attributes['allowMultipleOpen']);
 $categories     = $attributes['categories'] ?? [];
 $items          = $block->parsed_block['innerBlocks'] ?? [];
+$text_align     = $attributes['textAlign'] ?? 'left';
+$item_spacing   = (int) ($attributes['itemSpacing'] ?? 16);
+$heading_level  = max(2, min(6, (int) ($attributes['headingLevel'] ?? 3)));
+$heading_tag    = 'h' . $heading_level;
 
 if ( empty($items) ) {
   return;
 }
+
+$align_to_justify = [
+  'left'   => 'flex-start',
+  'center' => 'center',
+  'right'  => 'flex-end',
+];
+$justify = $align_to_justify[$text_align] ?? 'flex-start';
 
 $schema_entities = [];
 $rendered_items  = [];
@@ -27,10 +38,7 @@ foreach ( $items as $index => $item ) {
   $schema_entities[] = [
     '@type'          => 'Question',
     'name'           => wp_strip_all_tags($question),
-    'acceptedAnswer' => [
-      '@type' => 'Answer',
-      'text'  => wp_strip_all_tags($answer),
-    ],
+    'acceptedAnswer' => [ '@type' => 'Answer', 'text' => wp_strip_all_tags($answer) ],
   ];
 
   $rendered_items[] = [
@@ -44,10 +52,18 @@ foreach ( $items as $index => $item ) {
 if ( empty($rendered_items) ) {
   return;
 }
+
+$wrapper_attributes = get_block_wrapper_attributes([
+  'style' => sprintf(
+    '--lsc-faq-text-align: %s; --lsc-faq-item-spacing: %dpx;',
+    esc_attr($text_align),
+    $item_spacing
+  ),
+]);
 ?>
 
 <div
-  <?php echo get_block_wrapper_attributes(); ?>
+  <?php echo $wrapper_attributes; ?>
   data-wp-interactive="lsc-faq-accordion"
   <?php echo wp_interactivity_data_wp_context([
     'allowMultiple'    => $allow_multiple,
@@ -64,9 +80,7 @@ if ( empty($rendered_items) ) {
       <select id="lsc-faq-category-filter" data-wp-on--change="actions.setCategory">
         <option value=""><?php echo esc_html__('All categories', 'lsc-blocks'); ?></option>
         <?php foreach ( $categories as $cat ) : ?>
-          <option value="<?php echo esc_attr($cat['slug']); ?>">
-            <?php echo esc_html($cat['label']); ?>
-          </option>
+          <option value="<?php echo esc_attr($cat['slug']); ?>"><?php echo esc_html($cat['label']); ?></option>
         <?php endforeach; ?>
       </select>
     </div>
@@ -75,30 +89,21 @@ if ( empty($rendered_items) ) {
   <?php foreach ( $rendered_items as $item ) : ?>
     <div
       class="lsc-faq-item"
-      <?php echo wp_interactivity_data_wp_context([
-        'itemId'   => $item['id'],
-        'category' => $item['category'],
-      ]); ?>
+      <?php echo wp_interactivity_data_wp_context([ 'itemId' => $item['id'], 'category' => $item['category'] ]); ?>
       data-wp-bind--hidden="!state.isItemVisible"
     >
-      <h3>
+      <<?php echo $heading_tag; ?>>
         <button
           type="button"
           class="lsc-faq-question"
           data-wp-on--click="actions.toggleItem"
           data-wp-bind--aria-expanded="state.isItemOpen"
         >
-          <?php echo $item['question']; ?>
+          <span class="lsc-faq-question-text"><?php echo $item['question']; ?></span>
         </button>
-      </h3>
-      <div
-        class="lsc-faq-answer"
-        data-wp-class--is-open="state.isItemOpen"
-        data-wp-bind--inert="!state.isItemOpen"
-      >
-        <div class="lsc-faq-answer-content">
-          <?php echo $item['answer']; ?>
-        </div>
+      </<?php echo $heading_tag; ?>>
+      <div class="lsc-faq-answer" data-wp-class--is-open="state.isItemOpen" data-wp-bind--inert="!state.isItemOpen">
+        <div class="lsc-faq-answer-content"><?php echo $item['answer']; ?></div>
       </div>
     </div>
   <?php endforeach; ?>
@@ -106,10 +111,6 @@ if ( empty($rendered_items) ) {
 
 <?php if ( ! empty($schema_entities) ) : ?>
   <script type="application/ld+json">
-    <?php echo wp_json_encode([
-      '@context'   => 'https://schema.org',
-      '@type'      => 'FAQPage',
-      'mainEntity' => $schema_entities,
-    ]); ?>
+    <?php echo wp_json_encode([ '@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $schema_entities ]); ?>
   </script>
 <?php endif; ?>

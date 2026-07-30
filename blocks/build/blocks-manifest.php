@@ -29,10 +29,6 @@ return array(
 				'type' => 'number',
 				'default' => 16
 			),
-			'fontFamily' => array(
-				'type' => 'string',
-				'default' => ''
-			),
 			'headingLevel' => array(
 				'type' => 'number',
 				'default' => 3
@@ -40,8 +36,6 @@ return array(
 		),
 		'providesContext' => array(
 			'lsc-blocks/faqCategories' => 'categories',
-			'lsc-blocks/faqTextAlign' => 'textAlign',
-			'lsc-blocks/faqFontFamily' => 'fontFamily',
 			'lsc-blocks/faqHeadingLevel' => 'headingLevel'
 		),
 		'supports' => array(

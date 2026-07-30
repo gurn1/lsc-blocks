@@ -26,14 +26,13 @@ export default function Edit({ attributes, setAttributes }) {
     categories,
     textAlign,
     itemSpacing,
-    fontFamily,
     headingLevel
   } = attributes;
 
+	
 	const blockProps = useBlockProps({
 		style: {
-      textAlign,
-      fontFamily: fontFamily || undefined,
+      '--lsc-faq-text-align': textAlign,
       '--lsc-faq-item-spacing': `${itemSpacing}px`,
     },
 	});
