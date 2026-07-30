@@ -58,6 +58,10 @@ class LSCControllerPostFeedback extends LSCAbstractController {
     return rest_ensure_request( $this->model->get( $args['post_id'] ) );
   }
 
+  public function count( int $post_id ): array {
+    return $this->model->get( $post_id );
+  }
+
   public function store( \WP_REST_Request $request ): \WP_REST_Response {
     $post_id  = (int) $request->get_param('post_id');
     $vote     = $request->get_param('vote');  
