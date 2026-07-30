@@ -15,7 +15,7 @@ if( ! defined('ABSPATH')) {
 
 if( ! class_exists('LSCClass') ) {
   class LSCClass {
-    public static $version = '1.0.0';
+    public static $version = '1.1.0';
 
     public static $name = 'LSC Blocks';
 
