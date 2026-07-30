@@ -8,6 +8,7 @@
 namespace lsc\blocks\app\core;
 
 use \lsc\blocks\app\controllers\LSCControllerProjects;
+use \lsc\blocks\app\controllers\LSCControllerPostFeedback;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -24,7 +25,8 @@ if( ! class_exists('LSCClass') ) {
 	  protected static array $instances = [];
 
     protected static array $controllers = [
-      LSCControllerProjects::class
+      LSCControllerProjects::class,
+      LSCControllerPostFeedback::class
     ];
 
     public function __construct() {

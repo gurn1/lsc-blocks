@@ -2,7 +2,7 @@
 /**
  * Class for registering route
  * 
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 namespace lsc\blocks\app\core;
@@ -19,20 +19,29 @@ class LSCRoute {
   protected string $version = LSC_ROUTE_VERSION;
 
   public function __construct( protected LSCAbstractController $controller, protected array $config ) {
-     add_action('rest_api_init', [$this, 'register']);
+    add_action('rest_api_init', [$this, 'register']);
   }
 
   /**
    * Implement register method
+   *
+   * Supports either a single handler (the original shape - 'methods',
+   * 'callback', 'permission_callback' directly on $config) or multiple
+   * handlers on the same endpoint via $config['handlers'].
    */
   public function register(): void {
     $namespace = trailingslashit($this->path) . $this->version;
+    $handlers  = $this->config['handlers'] ?? [ $this->config ];
 
-    register_rest_route($namespace, $this->config['endpoint'], [
-      'methods'             => $this->config['methods'] ?? 'GET',
-      'callback'            => [$this->controller, 'response'],
-      'permission_callback' => $this->config['permission_callback'] ?? [$this, 'default_permissions'],
-    ]);
+    register_rest_route($namespace, $this->config['endpoint'], array_map(
+      fn( $handler ) => [
+        'methods'             => $handler['methods'] ?? 'GET',
+        'callback'            => [ $this->controller, $handler['callback'] ?? 'response' ],
+        'permission_callback' => $handler['permission_callback'] ?? [ $this, 'default_permissions' ],
+        'args'                => $handler['args'] ?? [],
+      ],
+      $handlers
+    ));
   }
 
   /**
@@ -41,5 +50,4 @@ class LSCRoute {
   public function default_permissions($request): bool {
     return wp_verify_nonce($request->get_header('X-WP-Nonce'), 'wp_rest') !== false;
   }
-
 }

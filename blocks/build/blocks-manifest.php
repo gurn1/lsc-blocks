@@ -51,6 +51,7 @@ return array(
 			'interactivity' => true,
 			'typography' => array(
 				'fontSize' => true,
+				'fontFamily' => true,
 				'lineHeight' => true
 			),
 			'color' => array(
@@ -96,6 +97,39 @@ return array(
 		),
 		'textdomain' => 'lsc-blocks',
 		'editorScript' => 'file:./index.js'
+	),
+	'post-feedback' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'lsc-blocks/post-feedback',
+		'version' => '0.1.0',
+		'title' => 'Was This Helpful?',
+		'category' => 'widgets',
+		'icon' => 'thumbs-up',
+		'description' => 'A thumbs up/down feedback widget for the current post.',
+		'usesContext' => array(
+			'postId'
+		),
+		'attributes' => array(
+			'question' => array(
+				'type' => 'string',
+				'default' => 'Was this article helpful?'
+			),
+			'thankYouMessage' => array(
+				'type' => 'string',
+				'default' => 'Thanks for your feedback!'
+			)
+		),
+		'supports' => array(
+			'html' => false,
+			'interactivity' => true
+		),
+		'textdomain' => 'lsc-blocks',
+		'editorScript' => 'file:./index.js',
+		'editorStyle' => 'file:./index.css',
+		'style' => 'file:./style-index.css',
+		'render' => 'file:./render.php',
+		'viewScriptModule' => 'file:./view.js'
 	),
 	'projects-grid' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
