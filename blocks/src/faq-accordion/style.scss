@@ -9,18 +9,51 @@
   gap: var(--lsc-faq-item-spacing, 16px);
 
   .lsc-faq-filter {
+    position: relative;
     margin-bottom: calc(var(--lsc-faq-item-spacing, 16px) / 2);
+    max-width: 20rem;
 
     select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
       width: 100%;
-      max-width: 20rem;
-      padding: 0.5em 0.75em;
-      border: 1px solid var(--lsc-faq-border-color);
+      padding: 0.65em 2.25em 0.65em 0.9em;
+      border: 1px solid color-mix(in srgb, var(--lsc-faq-border-color) 40%, transparent);
       border-radius: var(--lsc-faq-radius);
       background: transparent;
       color: inherit;
       font: inherit;
-      text-align: left;
+      cursor: pointer;
+      transition: border-color var(--lsc-faq-transition-speed) ease;
+
+      &:hover {
+        border-color: color-mix(in srgb, var(--lsc-faq-border-color) 70%, transparent);
+      }
+
+      &:focus-visible {
+        //outline: 2px solid var(--lsc-faq-accent-color);
+        //outline-offset: 1px;
+        //border-color: var(--lsc-faq-accent-color);
+      }
+
+      // Removes the default arrow in older Firefox/IE without touching appearance
+      &::-ms-expand {
+        display: none;
+      }
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 1em;
+      top: 50%;
+      width: 0.5em;
+      height: 0.5em;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: translateY(-70%) rotate(45deg);
+      pointer-events: none;
     }
   }
 
