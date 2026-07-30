@@ -10,6 +10,9 @@ $text_align     = $attributes['textAlign'] ?? 'left';
 $item_spacing   = (int) ($attributes['itemSpacing'] ?? 16);
 $heading_level  = max(2, min(6, (int) ($attributes['headingLevel'] ?? 3)));
 $heading_tag    = 'h' . $heading_level;
+$show_category_heading = ! empty($attributes['showCategoryHeading']);
+$all_categories_label  = sanitize_text_field($attributes['allCategoriesLabel'] ?? '');
+$category_heading_tag  = 'h' . max(2, $heading_level - 1);
 
 if ( empty($items) ) {
   return;
@@ -69,6 +72,8 @@ $wrapper_attributes = get_block_wrapper_attributes([
     'allowMultiple'    => $allow_multiple,
     'selectedCategory' => '',
     'openItems'        => [],
+    'categories'         => $categories,
+    'allCategoriesLabel' => $all_categories_label
   ]); ?>
 >
 
@@ -84,6 +89,14 @@ $wrapper_attributes = get_block_wrapper_attributes([
         <?php endforeach; ?>
       </select>
     </div>
+  <?php endif; ?>
+
+  <?php if ( $show_category_heading ) : ?>
+    <<?php echo $category_heading_tag; ?>
+      class="lsc-faq-category-heading"
+      data-wp-text="state.categoryHeadingText"
+      data-wp-bind--hidden="!state.categoryHeadingText"
+    ><?php echo esc_html($all_categories_label); ?></<?php echo $category_heading_tag; ?>>
   <?php endif; ?>
 
   <?php foreach ( $rendered_items as $item ) : ?>

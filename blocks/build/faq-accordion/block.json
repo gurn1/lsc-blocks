@@ -27,6 +27,14 @@
     "headingLevel": {
       "type": "number",
       "default": 3
+    },
+    "showCategoryHeading": {
+      "type": "boolean",
+      "default": false
+    },
+    "allCategoriesLabel": {
+      "type": "string",
+      "default": ""
     }
   },
   "providesContext": {

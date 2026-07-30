@@ -32,6 +32,14 @@ return array(
 			'headingLevel' => array(
 				'type' => 'number',
 				'default' => 3
+			),
+			'showCategoryHeading' => array(
+				'type' => 'boolean',
+				'default' => false
+			),
+			'allCategoriesLabel' => array(
+				'type' => 'string',
+				'default' => ''
 			)
 		),
 		'providesContext' => array(
@@ -43,7 +51,6 @@ return array(
 			'interactivity' => true,
 			'typography' => array(
 				'fontSize' => true,
-				'fontFamily' => true,
 				'lineHeight' => true
 			),
 			'color' => array(
@@ -85,7 +92,6 @@ return array(
 		'usesContext' => array(
 			'lsc-blocks/faqCategories',
 			'lsc-blocks/faqTextAlign',
-			'lsc-blocks/faqFontFamily',
 			'lsc-blocks/faqHeadingLevel'
 		),
 		'textdomain' => 'lsc-blocks',

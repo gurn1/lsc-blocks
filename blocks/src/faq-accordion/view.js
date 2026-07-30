@@ -2,6 +2,16 @@ import { store, getContext } from '@wordpress/interactivity';
 
 store('lsc-faq-accordion', {
   state: {
+    get categoryHeadingText() {
+      const context = getContext();
+
+      if (!context.selectedCategory) {
+        return context.allCategoriesLabel || '';
+      }
+
+      const match = context.categories.find((cat) => cat.slug === context.selectedCategory);
+      return match ? match.label : '';
+    },
     get isItemOpen() {
       const context = getContext();
       return context.openItems.includes(context.itemId);

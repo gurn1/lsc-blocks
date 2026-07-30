@@ -11,6 +11,7 @@ import {
 	ToggleControl,
 	RangeControl,
 	SelectControl,
+	TextControl
 } from '@wordpress/components';
 
 import { __ } from '@wordpress/i18n';
@@ -26,7 +27,9 @@ export default function Edit({ attributes, setAttributes }) {
     categories,
     textAlign,
     itemSpacing,
-    headingLevel
+    headingLevel,
+		showCategoryHeading,
+  	allCategoriesLabel,
   } = attributes;
 
 	
@@ -54,6 +57,21 @@ export default function Edit({ attributes, setAttributes }) {
 							setAttributes({ allowMultipleOpen: value })
 						}
 					/>
+
+					 <ToggleControl
+							label={__('Show a heading for the selected category', 'lsc-blocks')}
+							checked={showCategoryHeading}
+							onChange={(value) => setAttributes({ showCategoryHeading: value })}
+						/>
+
+						{showCategoryHeading && (
+							<TextControl
+								label={__('Heading text when "All categories" is selected', 'lsc-blocks')}
+								help={__('Leave blank to show no heading at all when nothing is filtered.', 'lsc-blocks')}
+								value={allCategoriesLabel}
+								onChange={(value) => setAttributes({ allCategoriesLabel: value })}
+							/>
+						)}
 				</PanelBody>
 
 				<PanelBody
