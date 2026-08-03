@@ -66,15 +66,15 @@ $wrapper_attributes = get_block_wrapper_attributes([
 ?>
 
 <div
-  <?php echo $wrapper_attributes; ?>
+  <?php echo wp_kses_post( $wrapper_attributes ); ?>
   data-wp-interactive="lsc-faq-accordion"
-  <?php echo wp_interactivity_data_wp_context([
+  <?php echo wp_kses_post(wp_interactivity_data_wp_context([
     'allowMultiple'    => $allow_multiple,
     'selectedCategory' => '',
     'openItems'        => [],
     'categories'         => $categories,
     'allCategoriesLabel' => $all_categories_label
-  ]); ?>
+  ])); ?>
 >
 
   <?php if ( ! empty($categories) ) : ?>
@@ -92,31 +92,31 @@ $wrapper_attributes = get_block_wrapper_attributes([
   <?php endif; ?>
 
   <?php if ( $show_category_heading ) : ?>
-    <<?php echo $category_heading_tag; ?>
+    <<?php echo esc_html($category_heading_tag); ?>
       class="lsc-faq-category-heading"
       data-wp-text="state.categoryHeadingText"
       data-wp-bind--hidden="!state.categoryHeadingText"
-    ><?php echo esc_html($all_categories_label); ?></<?php echo $category_heading_tag; ?>>
+    ><?php echo esc_html($all_categories_label); ?></<?php echo esc_html($category_heading_tag); ?>>
   <?php endif; ?>
 
   <?php foreach ( $rendered_items as $item ) : ?>
     <div
       class="lsc-faq-item"
-      <?php echo wp_interactivity_data_wp_context([ 'itemId' => $item['id'], 'category' => $item['category'] ]); ?>
+      <?php echo wp_kses_post( wp_interactivity_data_wp_context([ 'itemId' => $item['id'], 'category' => $item['category'] ]) ); ?>
       data-wp-bind--hidden="!state.isItemVisible"
     >
-      <<?php echo $heading_tag; ?>>
+      <<?php echo esc_html($heading_tag); ?>>
         <button
           type="button"
           class="lsc-faq-question"
           data-wp-on--click="actions.toggleItem"
           data-wp-bind--aria-expanded="state.isItemOpen"
         >
-          <span class="lsc-faq-question-text"><?php echo $item['question']; ?></span>
+          <span class="lsc-faq-question-text"><?php echo esc_html($item['question']); ?></span>
         </button>
-      </<?php echo $heading_tag; ?>>
+      </<?php echo esc_html($heading_tag); ?>>
       <div class="lsc-faq-answer" data-wp-class--is-open="state.isItemOpen" data-wp-bind--inert="!state.isItemOpen">
-        <div class="lsc-faq-answer-content"><?php echo $item['answer']; ?></div>
+        <div class="lsc-faq-answer-content"><?php echo wp_kses_post($item['answer']); ?></div>
       </div>
     </div>
   <?php endforeach; ?>
