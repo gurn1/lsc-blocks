@@ -8,7 +8,7 @@
  * Text Domain: lsc-blocks
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Requires at least: 6.5
+ * Requires at least: 6.7
  * Requires PHP: 8.0
  *
  * @package lsc-blocks
