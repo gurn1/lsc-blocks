@@ -9,6 +9,7 @@ namespace lsc\blocks\app\core;
 
 use \lsc\blocks\app\controllers\LSCControllerProjects;
 use \lsc\blocks\app\controllers\LSCControllerPostFeedback;
+use \lsc\blocks\app\admin\LSCSettingsGoogleReviews;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -26,7 +27,8 @@ if( ! class_exists('LSCClass') ) {
 
     protected static array $controllers = [
       LSCControllerProjects::class,
-      LSCControllerPostFeedback::class
+      LSCControllerPostFeedback::class,
+      LSCControllerGoogleReviews::class
     ];
 
     public function __construct() {
@@ -34,6 +36,9 @@ if( ! class_exists('LSCClass') ) {
 
       // add controllers
       self::init_controllers();
+
+      // Temporary location for calling admin settings
+      new LSCSettingsGoogleReviews();
 
       // init plugin
       add_action('init', [__CLASS__, 'init']);
