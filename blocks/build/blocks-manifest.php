@@ -98,6 +98,38 @@ return array(
 		'textdomain' => 'lsc-blocks',
 		'editorScript' => 'file:./index.js'
 	),
+	'google-reviews' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'lsc-blocks/google-reviews',
+		'version' => '0.1.0',
+		'title' => 'Google Reviews',
+		'category' => 'widgets',
+		'icon' => 'star-filled',
+		'description' => 'Displays cached Google reviews for a configured business location.',
+		'attributes' => array(
+			'placeId' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'placeName' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'refreshInterval' => array(
+				'type' => 'string',
+				'default' => 'daily'
+			)
+		),
+		'supports' => array(
+			'html' => false
+		),
+		'textdomain' => 'lsc-blocks',
+		'editorScript' => 'file:./index.js',
+		'editorStyle' => 'file:./index.css',
+		'style' => 'file:./style-index.css',
+		'render' => 'file:./render.php'
+	),
 	'post-feedback' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,

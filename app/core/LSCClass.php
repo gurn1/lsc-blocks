@@ -9,6 +9,7 @@ namespace lsc\blocks\app\core;
 
 use \lsc\blocks\app\controllers\LSCControllerProjects;
 use \lsc\blocks\app\controllers\LSCControllerPostFeedback;
+use \lsc\blocks\app\controllers\LSCControllerGoogleReviews;
 use \lsc\blocks\app\admin\LSCSettingsGoogleReviews;
 
 if( ! defined('ABSPATH')) {
