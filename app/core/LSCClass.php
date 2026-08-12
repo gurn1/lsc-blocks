@@ -85,9 +85,13 @@ if( ! class_exists('LSCClass') ) {
         $controller = new $controller_class();
         static::$instances[$controller_class] = $controller;
 
-        $route_config = $controller_class::route();
+        $route_configs = $controller_class::route();
 
-        if( $route_config !== null ) {
+        if( $route_configs !== null ) {
+          continue;
+        }
+
+        foreach ( $route_configs as $route_config ) {
           new LSCRoute( $controller, $route_config );
         }
       }

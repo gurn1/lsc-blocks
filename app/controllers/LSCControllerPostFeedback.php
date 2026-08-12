@@ -28,23 +28,19 @@ class LSCControllerPostFeedback extends LSCAbstractController {
 
   public static function route(): ?array {
     return [
-      'endpoint' => 'feedback/(?P<post_id>\d+)',
-      'handlers' => [
-        [
-          'methods' => 'GET',
-          'callback' => 'response'
-        ],
-        [
-          'methods' => 'POST',
-          'callback' => 'store',
-          'args' => [
-            'required'          => true,
-            'type'              => 'string',
-            'enum'              => ['yes', 'no'],
-            'sanitize_callback' => 'sanitize_text_field'
+      [
+        'endpoint' => 'feedback/(?P<post_id>\d+)',
+        'handlers' => [
+          [ 'methods' => 'GET', 'callback' => 'response' ],
+          [ 'methods' => 'POST', 'callback' => 'store', 'args' => [
+              'required'          => true,
+              'type'              => 'string',
+              'enum'              => ['yes', 'no'],
+              'sanitize_callback' => 'sanitize_text_field'
+            ],
           ],
         ],
-      ],
+      ]
     ];
   }
 

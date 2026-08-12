@@ -62,7 +62,7 @@ abstract class LSCAbstractController {
   abstract public static function identifier(): string;
   
   abstract public function register(): void;
-  abstract public function request( \WP_Rest_Request $request ): array;
-  abstract public function response( \WP_Rest_Request $request ): \WP_REST_Response;
+  // abstract public function request( \WP_Rest_Request $request ): array;
+  // abstract public function response( \WP_Rest_Request $request ): \WP_REST_Response;
 
 }

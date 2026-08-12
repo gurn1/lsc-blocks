@@ -58,8 +58,7 @@ class LSCControllerProjects extends LSCAbstractController {
 
 	public static function route(): ?array {
 		return [
-			'endpoint' => 'projects-grid',
-			'methods'  => 'GET',
+			[ 'endpoint' => 'projects-grid', 'methods'  => 'GET' ]
 		];
 	}
 
