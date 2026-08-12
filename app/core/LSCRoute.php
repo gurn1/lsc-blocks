@@ -37,8 +37,12 @@ class LSCRoute {
       fn( $handler ) => [
         'methods'             => $handler['methods'] ?? 'GET',
         'callback'            => [ $this->controller, $handler['callback'] ?? 'response' ],
-        'permission_callback' => $handler['permission_callback'] ?? [ $this, 'default_permissions' ],
-        'args'                => $handler['args'] ?? [],
+        'permission_callback' => $handler['permission_callback'] ?? (
+          ! empty($handler['requires_admin'])
+            ? [ $this, 'admin_permissions' ]
+            : [ $this, 'default_permissions' ]
+        ),
+        'args' => $handler['args'] ?? [],
       ],
       $handlers
     ));
@@ -49,5 +53,12 @@ class LSCRoute {
    */
   public function default_permissions($request): bool {
     return wp_verify_nonce($request->get_header('X-WP-Nonce'), 'wp_rest') !== false;
+  }
+
+  /**
+   * Checks both capability and nonce
+   */
+  public function admin_permissions($request): bool {
+    return current_user_can('manage_options') && $this->default_permissions($request);
   }
 }
