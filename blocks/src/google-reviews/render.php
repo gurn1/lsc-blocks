@@ -10,6 +10,9 @@ $controller = LSCClass::controller( LSCControllerGoogleReviews::class );
 $place_id   = sanitize_text_field($attributes['placeId'] ?? '');
 $interval   = sanitize_text_field($attributes['refreshInterval'] ?? 'daily');
 
+var_dump($place_id);
+var_dump($interval);
+
 if ( ! $controller || empty($place_id) ) {
   return;
 }

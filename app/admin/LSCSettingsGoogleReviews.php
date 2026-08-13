@@ -47,6 +47,13 @@ class LSCSettingsGoogleReviews {
     ?>
     <div class="wrap">
       <h1><?php echo esc_html__('LSC Blocks - Google Reviews', 'lsc-blocks'); ?></h1>
+
+      <?php if ( empty( get_option(static::OPTION_KEY, '') ) ) : ?>
+        <div class="notice notice-info inline">
+          <p><?php echo esc_html__('No API key configured - Google Reviews blocks are currently showing demo data.', 'lsc-blocks'); ?></p>
+        </div>
+      <?php endif; ?>
+
       <form method="post" action="options.php">
         <?php settings_fields('lsc_blocks_google_reviews'); ?>
         <table class="form-table">

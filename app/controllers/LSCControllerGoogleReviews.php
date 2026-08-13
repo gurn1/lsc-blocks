@@ -18,11 +18,6 @@ class LSCControllerGoogleReviews extends LSCAbstractController {
     return LSCModelGoogleReviews::class;
   }
 
-  /**
-   * No post type or taxonomy, but this is where the custom cron
-   * intervals get registered - "weekly"/"monthly" don't exist in WP
-   * core, only hourly/twicedaily/daily do.
-   */
   public function register(): void {
     add_filter('cron_schedules', [$this, 'register_cron_intervals']);
     add_action('lsc_refresh_google_reviews', [$this, 'handle_scheduled_refresh']);

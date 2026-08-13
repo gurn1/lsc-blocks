@@ -7,11 +7,14 @@ if( ! defined('ABSPATH')) {
 
 use lsc\blocks\app\abstracts\LSCAbstractModel;
 use lsc\blocks\app\admin\LSCSettingsGoogleReviews;
+use lsc\blocks\app\fixtures\LSCFixtureGoogleReviews;
 
 class LSCModelGoogleReviews extends LSCAbstractModel {
 
   protected const CACHE_PREFIX = 'lsc_google_reviews_';
   protected const API_BASE     = 'https://places.googleapis.com/v1/';
+
+  protected ?LSCFixtureGoogleReviews $fixture = null;
 
   /**
    * Search for a place by free-text (e.g. a business name), so an author
@@ -20,6 +23,11 @@ class LSCModelGoogleReviews extends LSCAbstractModel {
    * @return array|\WP_Error
    */
   public function search_places( string $query ) {
+    if ( $this->is_mock_mode() ) {
+      return $this->fixture()->search_places( $query );
+    }
+
+
     $api_key = LSCSettingsGoogleReviews::api_key();
 
     if ( empty($api_key) ) {
@@ -61,6 +69,10 @@ class LSCModelGoogleReviews extends LSCAbstractModel {
    * @return array|\WP_Error
    */
   public function fetch_reviews( string $place_id ) {
+    if ( $this->is_mock_mode() ) {
+      return $this->fixture()->fetch_reviews( $place_id );
+    }
+
     $api_key = LSCSettingsGoogleReviews::api_key();
 
     if ( empty($api_key) ) {
@@ -99,6 +111,21 @@ class LSCModelGoogleReviews extends LSCAbstractModel {
       'reviews'       => $reviews,
       'fetched_at'    => time(),
     ];
+  }
+
+  protected function is_mock_mode(): bool {
+    return apply_filters(
+      'lsc_blocks_google_reviews_mock_mode',
+      empty( LSCSettingsGoogleReviews::api_key() )
+    );
+  }
+
+  protected function fixture(): LSCFixtureGoogleReviews {
+    if ( is_null($this->fixture) ) {
+      $this->fixture = new LSCFixtureGoogleReviews();
+    }
+
+    return $this->fixture;
   }
 
   public function get_cached( string $place_id ) {
