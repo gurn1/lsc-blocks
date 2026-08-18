@@ -10,20 +10,17 @@ $controller = LSCClass::controller( LSCControllerGoogleReviews::class );
 $place_id   = sanitize_text_field($attributes['placeId'] ?? '');
 $interval   = sanitize_text_field($attributes['refreshInterval'] ?? 'daily');
 
-var_dump($place_id);
-var_dump($interval);
-
-if ( ! $controller || empty($place_id) ) {
-  return;
-}
+// if ( ! $controller || empty($place_id) ) {
+//   return;
+// }
 
 $controller->ensure_scheduled( $place_id, $interval );
 
 $data = $controller->reviews_for( $place_id );
 
-if ( empty($data) ) {
+if ( empty($data) ) :
   return; // nothing cached yet - the one-off fetch will populate this shortly
-}
+endif;
 ?>
 
 <div <?php echo get_block_wrapper_attributes(); ?>>

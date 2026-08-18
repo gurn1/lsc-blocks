@@ -27,7 +27,6 @@ class LSCModelGoogleReviews extends LSCAbstractModel {
       return $this->fixture()->search_places( $query );
     }
 
-
     $api_key = LSCSettingsGoogleReviews::api_key();
 
     if ( empty($api_key) ) {

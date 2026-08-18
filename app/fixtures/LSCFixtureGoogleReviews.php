@@ -24,8 +24,6 @@ class LSCFixtureGoogleReviews {
   }
 
   public function search_places( string $query ): array {
-    // The demo result's name reflects whatever was searched for, so the
-    // search UI still feels responsive even though the data is canned.
     return array_map( function ( $result ) use ( $query ) {
       $result['name'] = $query . ' - ' . $result['name'];
       return $result;
@@ -46,7 +44,7 @@ class LSCFixtureGoogleReviews {
     return [
       'name'          => 'Demo Business',
       'rating'        => 4.6,
-      'total_reviews' => 128,
+      'total_reviews' => 3,
       'reviews'       => [
         [ 'author' => 'Jordan P.', 'rating' => 5, 'text' => 'Excellent service, would recommend to anyone in the area.', 'time' => '' ],
         [ 'author' => 'Alex M.',   'rating' => 4, 'text' => 'Good experience overall, a little slow to respond initially.', 'time' => '' ],
