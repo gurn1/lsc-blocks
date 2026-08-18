@@ -92,8 +92,8 @@ if( ! class_exists('LSCClass') ) {
         static::$instances[$controller_class] = $controller;
 
         $route_configs = $controller_class::route();
-
-        if( $route_configs !== null ) {
+      
+        if( $route_configs === null ) {
           continue;
         }
 

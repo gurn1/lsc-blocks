@@ -119,12 +119,33 @@ return array(
 			'refreshInterval' => array(
 				'type' => 'string',
 				'default' => 'daily'
+			),
+			'displayMode' => array(
+				'type' => 'string',
+				'default' => 'list'
+			),
+			'slidesPerView' => array(
+				'type' => 'number',
+				'default' => 1
+			),
+			'cardBackgroundColor' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'cardTextColor' => array(
+				'type' => 'string',
+				'default' => ''
 			)
 		),
 		'supports' => array(
-			'html' => false
+			'html' => false,
+			'spacing' => array(
+				'margin' => true,
+				'padding' => true
+			)
 		),
 		'textdomain' => 'lsc-blocks',
+		'viewScript' => 'file:./view.js',
 		'editorScript' => 'file:./index.js',
 		'editorStyle' => 'file:./index.css',
 		'style' => 'file:./style-index.css',

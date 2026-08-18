@@ -98,6 +98,7 @@ class LSCModelGoogleReviews extends LSCAbstractModel {
 
     $reviews = array_map( fn( $review ) => [
       'author' => $review['authorAttribution']['displayName'] ?? '',
+      'avatar' => $review['authorAttribution']['photoUri'] ?? '',
       'rating' => $review['rating'] ?? 0,
       'text'   => $review['text']['text'] ?? '',
       'time'   => $review['publishTime'] ?? '',

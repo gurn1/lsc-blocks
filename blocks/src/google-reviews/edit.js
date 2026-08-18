@@ -1,11 +1,11 @@
 import { useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, TextControl, Button, SelectControl, Spinner, Notice } from '@wordpress/components';
+import { PanelBody, TextControl, Button, SelectControl, Spinner, Notice, ColorPalette } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 export default function Edit({ attributes, setAttributes }) {
-  const { placeId, placeName, refreshInterval } = attributes;
+  const { placeId, placeName, displayMode, refreshInterval, slidesPerView, cardBackgroundColor, cardTextColor } = attributes;
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -92,6 +92,32 @@ export default function Edit({ attributes, setAttributes }) {
           )}
         </PanelBody>
 
+        <PanelBody title={__('Display', 'lsc-blocks')}>
+          <SelectControl
+            label={__('Layout', 'lsc-blocks')}
+            value={displayMode}
+            options={[
+              { label: __('List', 'lsc-blocks'), value: 'list' },
+              { label: __('Grid', 'lsc-blocks'), value: 'grid' },
+              { label: __('Slider', 'lsc-blocks'), value: 'slider' },
+            ]}
+            onChange={(value) => setAttributes({ displayMode: value })}
+          />
+
+          {displayMode === 'slider' && (
+            <SelectControl
+              label={__('Cards per slide', 'lsc-blocks')}
+              value={String(slidesPerView)}
+              options={[
+                { label: '1', value: '1' },
+                { label: '2', value: '2' },
+                { label: '3', value: '3' },
+              ]}
+              onChange={(value) => setAttributes({ slidesPerView: parseInt(value, 10) })}
+            />
+          )}
+        </PanelBody>
+
         {placeName && (
           <PanelBody title={__('Refresh Schedule', 'lsc-blocks')}>
             <SelectControl
@@ -109,6 +135,33 @@ export default function Edit({ attributes, setAttributes }) {
             </Button>
           </PanelBody>
         )}
+
+      </InspectorControls>
+
+      <InspectorControls group="styles">
+        <PanelBody title="Cards">
+          <p>Card Background Colour</p>
+
+          <ColorPalette
+            label={__('Background Colour', 'lsc-blocks')}
+            value={cardBackgroundColor}
+            onChange={(color) =>
+              setAttributes({ cardBackgroundColor: color })
+            }
+            clearable
+          />
+
+          <p>Card Text Colour</p>
+
+          <ColorPalette
+            value={cardTextColor}
+            onChange={(color) =>
+              setAttributes({ cardTextColor: color })
+            }
+            clearable
+          />
+          
+        </PanelBody>
       </InspectorControls>
 
       {error && <Notice status="error" isDismissible={false}>{error}</Notice>}
