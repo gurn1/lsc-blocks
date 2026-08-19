@@ -27,7 +27,7 @@ class LSCSettingsGoogleReviews {
       __('LSC Blocks - Google Reviews', 'lsc-blocks'),
       __('LSC Blocks', 'lsc-blocks'),
       'manage_options',
-      'lsc-blocks-google-reviews',
+      'lsc-blocks-settings',
       [$this, 'render_page']
     );
   }
