@@ -46,7 +46,7 @@ class LSCSettingsGoogleReviews {
     }
     ?>
     <div class="wrap">
-      <h1><?php echo esc_html__('LSC Blocks - Google Reviews', 'lsc-blocks'); ?></h1>
+      <h1><?php echo esc_html__('LSC Blocks Settings', 'lsc-blocks'); ?></h1>
 
       <?php if ( empty( get_option(static::OPTION_KEY, '') ) ) : ?>
         <div class="notice notice-info inline">
@@ -54,6 +54,7 @@ class LSCSettingsGoogleReviews {
         </div>
       <?php endif; ?>
 
+      <h2><?php echo esc_html__('Google Reviews', 'lsc-blocks'); ?></h2>
       <form method="post" action="options.php">
         <?php settings_fields('lsc_blocks_google_reviews'); ?>
         <table class="form-table">
@@ -78,8 +79,12 @@ class LSCSettingsGoogleReviews {
             </td>
           </tr>
         </table>
-        <?php submit_button(); ?>
+        <?php submit_button( __('Save API Key', 'lsc-blocks') ); ?>
       </form>
+
+      <hr />
+
+      <?php do_action('lsc_blocks_settings_page'); ?>
     </div>
     <?php
   }

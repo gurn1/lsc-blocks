@@ -10,7 +10,9 @@ namespace lsc\blocks\app\core;
 use \lsc\blocks\app\controllers\LSCControllerProjects;
 use \lsc\blocks\app\controllers\LSCControllerPostFeedback;
 use \lsc\blocks\app\controllers\LSCControllerGoogleReviews;
+use \lsc\blocks\app\core\LSCBlockBindings;
 use \lsc\blocks\app\admin\LSCSettingsGoogleReviews;
+use \lsc\blocks\app\admin\LSCSettingsBusinessInfo;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -29,7 +31,7 @@ if( ! class_exists('LSCClass') ) {
     protected static array $controllers = [
       LSCControllerProjects::class,
       LSCControllerPostFeedback::class,
-      LSCControllerGoogleReviews::class
+      LSCControllerGoogleReviews::class,
     ];
 
     public function __construct() {
@@ -40,6 +42,8 @@ if( ! class_exists('LSCClass') ) {
 
       // Temporary location for calling admin settings
       new LSCSettingsGoogleReviews();
+      new LSCSettingsBusinessInfo();
+      new LSCBlockBindings();
 
       // init plugin
       add_action('init', [__CLASS__, 'init']);
