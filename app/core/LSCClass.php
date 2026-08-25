@@ -11,8 +11,8 @@ use \lsc\blocks\app\controllers\LSCControllerProjects;
 use \lsc\blocks\app\controllers\LSCControllerPostFeedback;
 use \lsc\blocks\app\controllers\LSCControllerGoogleReviews;
 use \lsc\blocks\app\core\LSCBlockBindings;
-use \lsc\blocks\app\admin\LSCSettingsGoogleReviews;
-use \lsc\blocks\app\admin\LSCSettingsBusinessInfo;
+use \lsc\blocks\app\admin\settings\LSCAdminSettingsPage;
+use \lsc\blocks\app\admin\pages\LSCAdminPageBusinessInfo;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -34,16 +34,21 @@ if( ! class_exists('LSCClass') ) {
       LSCControllerGoogleReviews::class,
     ];
 
+    protected LSCSettings $settings;
+
     public function __construct() {
       self::constants();
 
       // add controllers
       self::init_controllers();
 
+      $this->settings = new LSCSettings();
+
       // Temporary location for calling admin settings
-      new LSCSettingsGoogleReviews();
-      new LSCSettingsBusinessInfo();
-      new LSCBlockBindings();
+      new LSCBlockBindings($this->settings);
+
+      new LSCAdminSettingsPage();
+      new LSCAdminPageBusinessInfo();
 
       // init plugin
       add_action('init', [__CLASS__, 'init']);
@@ -66,6 +71,8 @@ if( ! class_exists('LSCClass') ) {
       self::define( 'LSC_BLOCK_PATH', trailingslashit(LSC_ABSPATH . 'blocks') );
       // path to views
       self::define( 'LSC_VIEWS', trailingslashit(LSC_ABSPATH . 'app/views') );
+      self::define( 'LSC_ADMIN_PAGE_VIEWS', trailingslashit(LSC_ABSPATH . 'app/admin/pages/views') );
+      self::define( 'LSC_SETTINGS_VIEWS', trailingslashit(LSC_ABSPATH . 'app/admin/settings/views') );
 
       // Routes
       self::define( 'LSC_ROUTE_VERSION', 'v1' );
@@ -169,5 +176,6 @@ if( ! class_exists('LSCClass') ) {
     public static function plugin_url() {
       return trailingslashit( plugins_url( '/', LSC_FILE ) );
     }
+
   }
 }

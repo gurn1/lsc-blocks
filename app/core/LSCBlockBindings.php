@@ -17,7 +17,11 @@ use lsc\blocks\app\admin\LSCSettingsBusinessInfo;
 
 class LSCBlockBindings {
 
-  public function __construct() {
+  protected LSCSettings $settings;
+
+  public function __construct(LSCSettings $settings) {
+    $this->settings = $settings;
+
     add_action('init', [$this, 'register']);
     add_action('enqueue_block_editor_assets', [$this, 'enqueue_editor_script']);
   }
@@ -30,7 +34,7 @@ class LSCBlockBindings {
   }
 
   public function get_value( array $source_args ): string {
-    $data = LSCSettingsBusinessInfo::get();
+    $data = $this->settings->get('business-info');
     $key  = $source_args['key'] ?? '';
 
     return match (true) {
@@ -71,7 +75,7 @@ class LSCBlockBindings {
       true
     );
 
-    $data = LSCSettingsBusinessInfo::get();
+    $data = $this->settings->get('business-info');
 
     wp_add_inline_script(
       'lsc-blocks-block-bindings',

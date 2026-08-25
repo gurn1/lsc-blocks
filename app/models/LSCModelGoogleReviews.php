@@ -6,7 +6,6 @@ if( ! defined('ABSPATH')) {
 }
 
 use lsc\blocks\app\abstracts\LSCAbstractModel;
-use lsc\blocks\app\admin\LSCSettingsGoogleReviews;
 use lsc\blocks\app\fixtures\LSCFixtureGoogleReviews;
 
 class LSCModelGoogleReviews extends LSCAbstractModel {
@@ -15,6 +14,12 @@ class LSCModelGoogleReviews extends LSCAbstractModel {
   protected const API_BASE     = 'https://places.googleapis.com/v1/';
 
   protected ?LSCFixtureGoogleReviews $fixture = null;
+
+
+  public function get_api_key() {
+    $settings = get_option('_lsc_blocks_settings', []);
+    return $settings['google-reviews']['api_key'] ?? '';
+  }
 
   /**
    * Search for a place by free-text (e.g. a business name), so an author
@@ -27,7 +32,7 @@ class LSCModelGoogleReviews extends LSCAbstractModel {
       return $this->fixture()->search_places( $query );
     }
 
-    $api_key = LSCSettingsGoogleReviews::api_key();
+    $api_key = $this->get_api_key();
 
     if ( empty($api_key) ) {
       return new \WP_Error('lsc_missing_api_key', __('No Google API key configured.', 'lsc-blocks'));
@@ -72,7 +77,7 @@ class LSCModelGoogleReviews extends LSCAbstractModel {
       return $this->fixture()->fetch_reviews( $place_id );
     }
 
-    $api_key = LSCSettingsGoogleReviews::api_key();
+    $api_key = $this->get_api_key();
 
     if ( empty($api_key) ) {
       return new \WP_Error('lsc_missing_api_key', __('No Google API key configured.', 'lsc-blocks'));
@@ -116,7 +121,7 @@ class LSCModelGoogleReviews extends LSCAbstractModel {
   protected function is_mock_mode(): bool {
     return apply_filters(
       'lsc_blocks_google_reviews_mock_mode',
-      empty( LSCSettingsGoogleReviews::api_key() )
+      empty( $this->get_api_key() )
     );
   }
 
