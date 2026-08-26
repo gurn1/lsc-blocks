@@ -17,11 +17,6 @@ use \lsc\blocks\app\core\LSCSettings;
 abstract class LSCAbstractAdminSettings extends LSCAbstractAdminPageContent {
 
   /**
-   * Option key
-   */
-  protected string $option_name = '';
-
-  /**
    * Settings page id
    */
   protected string $id = '';
@@ -55,7 +50,6 @@ abstract class LSCAbstractAdminSettings extends LSCAbstractAdminPageContent {
   public function __construct() {
     $this->settings = new LSCSettings();
     $this->field_handler = new LSCAdminFieldHandler();
-    $this->option_name = $this->settings::OPTION_NAME;
 
     add_action('admin_init', [$this, 'maybe_save']);
   }
@@ -90,7 +84,7 @@ abstract class LSCAbstractAdminSettings extends LSCAbstractAdminPageContent {
       $value = $data[$key] ?? null;
     }
 
-    return $this->field_handler->render_field( $this->option_name , $this->option_key, $key, $field, $value );
+    return $this->field_handler->render_field( LSCSettings::OPTION_NAME, $this->option_key, $key, $field, $value );
   }
 
   public function maybe_save(): void {
@@ -104,11 +98,11 @@ abstract class LSCAbstractAdminSettings extends LSCAbstractAdminPageContent {
       wp_die( esc_html__('You do not have permission to do this.', 'lsc-blocks') );
     }
 
-    $submitted = wp_unslash( $_POST[ $this->option_name  ][ $this->option_key ] ?? [] );
-
-    $all = $this->settings->all();
-    $all[ $this->option_key ] = $this->field_handler->sanitize( $this->fields(), $submitted );
-    update_option( $this->option_name , $all );
+    $submitted = wp_unslash( $_POST[ LSCSettings::OPTION_NAME ][ $this->option_key ] ?? [] );
+    $sanitized = $this->field_handler->sanitize( $this->fields(), $submitted );
+   
+    // save the data
+    $this->settings->set( $this->option_key, $sanitized );
 
     wp_safe_redirect( add_query_arg('updated', 'true', wp_get_referer()) );
     exit;

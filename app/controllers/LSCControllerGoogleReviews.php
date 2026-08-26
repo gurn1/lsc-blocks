@@ -11,7 +11,7 @@ use lsc\blocks\app\models\LSCModelGoogleReviews;
 class LSCControllerGoogleReviews extends LSCAbstractController {
 
   public static function identifier(): string {
-    return 'google-reviews';
+    return 'google-reviews'; // must match the block id
   }
 
   protected static function model_class(): string {

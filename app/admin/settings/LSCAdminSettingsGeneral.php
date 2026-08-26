@@ -22,10 +22,37 @@ class LSCAdminSettingsGeneral extends LSCAbstractAdminSettings {
     $this->id = 'lsc-blocks-settings-general';
     $this->label = 'General';
     $this->option_key = 'general';
+
+    parent::__construct();
   }
 
   public function fields(): array {
-    return [];
+    $options = [];
+
+    foreach ( $this->get_block_manifest() as $block_name => $block_data ) {
+      if( ! empty($block_data['parent']) ) {
+        continue;
+      }
+      $options[$block_name] = $block_data['title'] ?? $block_name;
+    }
+
+    return [
+      'disabled_blocks' => [
+        'type'    => 'checkbox_group',
+        'label'   => __('Disable Blocks', 'lsc-blocks'),
+        'options' => $options,
+      ],
+    ];
+  }
+
+  protected function get_block_manifest(): array {
+    $manifest_file = LSC_BLOCK_PATH . 'build/blocks-manifest.php';
+
+    if ( ! file_exists($manifest_file) ) {
+      return [];
+    }
+
+    return require $manifest_file;
   }
 
 }

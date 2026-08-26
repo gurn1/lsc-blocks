@@ -17,7 +17,7 @@ use lsc\blocks\app\models\LSCModelPostFeedback;
 class LSCControllerPostFeedback extends LSCAbstractController {
 
   public static function identifier(): string {
-    return 'postfeedback-widget';
+    return 'post-feedback'; // must match the block id
   }
 
   protected static function model_class(): string {

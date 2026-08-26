@@ -28,10 +28,6 @@ class LSCAdminSettingsGoogleReviews extends LSCAbstractAdminSettings {
 
   public function fields(): array {
     return [
-      'test' => [
-        'type' => 'text',
-        'label' => 'Testing',
-      ],
       'api_key' => [ 
         'type' => 'password', 
         'label' => 'Google Places API Key', 

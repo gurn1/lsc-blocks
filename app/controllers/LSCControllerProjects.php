@@ -17,7 +17,7 @@ use lsc\blocks\app\models\LSCModelProjects;
 class LSCControllerProjects extends LSCAbstractController {
 
 	public static function identifier(): string {
-		return 'projects';
+		return 'projects-grid'; // must match the block id
 	}
 
 	protected static function model_class(): string {

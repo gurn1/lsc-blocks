@@ -51,7 +51,7 @@ if( ! class_exists('LSCClass') ) {
       new LSCAdminPageBusinessInfo();
 
       // init plugin
-      add_action('init', [__CLASS__, 'init']);
+      add_action('init', [$this, 'init']);
 
       // scripts inline injection
       add_action('wp_footer', [__CLASS__, 'add_inline_scripts']);
@@ -87,9 +87,9 @@ if( ! class_exists('LSCClass') ) {
      * 
      * @since 1.0.0
      */
-    public static function init() {
+    public function init() {
       // add block manifest data 
-      self::register_blocks();
+      $this->register_blocks();
     }
 
     /**
@@ -127,13 +127,18 @@ if( ! class_exists('LSCClass') ) {
      * 
      * @since 1.0.0
      */
-    public static function register_blocks() {
+    public function register_blocks() {
       if ( function_exists( 'wp_register_block_metadata_collection' ) ) {
         wp_register_block_metadata_collection( LSC_BLOCK_PATH . 'build', LSC_BLOCK_PATH . 'build/blocks-manifest.php' );
       }
 
+      $disabled = $this->settings->get_path('general.disabled_blocks', []);
+
       $manifest_data = require LSC_BLOCK_PATH . 'build/blocks-manifest.php';
       foreach ( array_keys( $manifest_data ) as $block_type ) {
+        if( in_array( $block_type, (array) $disabled, true ) ) {
+          continue;
+        }
         register_block_type( LSC_BLOCK_PATH . "build/{$block_type}" );
       }
     }

@@ -25,12 +25,23 @@ class LSCAdminFieldHandler {
 
   protected function sanitize_field( $value, array $field ) {
     return match ( $field['type'] ) {
-      'email'    => sanitize_email( $value ?? '' ),
-      'textarea' => sanitize_textarea_field( $value ?? '' ),
-      'checkbox' => ! empty( $value ),
-      'hours' => $this->sanitize_hours($value),
-      default    => sanitize_text_field( $value ?? '' ),
+      'email'          => sanitize_email( $value ?? '' ),
+      'textarea'       => sanitize_textarea_field( $value ?? '' ),
+      'checkbox'       => ! empty( $value ),
+      'checkbox_group' => $this->sanitize_checkbox_group( $value, $field ),
+      'hours'          => $this->sanitize_hours( $value ),
+      default          => sanitize_text_field( $value ?? '' ),
     };
+  }
+
+  protected function sanitize_checkbox_group( $value, array $field ): array {
+    if ( ! is_array($value) ) {
+      return [];
+    }
+
+    $valid_keys = array_keys( $field['options'] ?? [] );
+
+    return array_values( array_intersect( array_map('sanitize_text_field', $value), $valid_keys ) );
   }
 
   /**
@@ -84,6 +95,20 @@ class LSCAdminFieldHandler {
           '<input type="checkbox" name="%s" id="%s" value="1" %s />',
           esc_attr($name), esc_attr($id), checked($value, true, false)
         );
+        break;
+
+      case 'checkbox_group':
+        printf('<fieldset class="lsc-checkbox-group">');
+        foreach ( $field['options'] as $option_key => $option_label ) {
+          printf(
+            '<div><label class="lsc-checkbox-group__item"><input type="checkbox" name="%s[]" value="%s" %s /> %s</label></div>',
+            esc_attr($name),
+            esc_attr($option_key),
+            checked( in_array($option_key, (array) $value, true), true, false ),
+            esc_html($option_label)
+          );
+        }
+        echo '</fieldset>';
         break;
 
       case 'textarea':
