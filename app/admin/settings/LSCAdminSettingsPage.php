@@ -27,7 +27,7 @@ class LSCAdminSettingsPage {
   }
 
   public static function tabs(): array {
-    return apply_filter('lsc_blocks_settings_tabs', static::$tabs);
+    return apply_filters('lsc_blocks_settings_tabs', static::$tabs);
   }
 
   public function register_settings_page(): void {
@@ -46,7 +46,7 @@ class LSCAdminSettingsPage {
     }
 
     $pages = $this->instances;
-    $current_id = sanitize_text_field( $_GET['tab'] ?? '' );
+    $current_id = isset($_GET['tab']) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
     $active_page = current( array_filter(
       $this->instances,

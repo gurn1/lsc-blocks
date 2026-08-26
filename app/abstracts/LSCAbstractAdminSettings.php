@@ -98,7 +98,7 @@ abstract class LSCAbstractAdminSettings extends LSCAbstractAdminPageContent {
       wp_die( esc_html__('You do not have permission to do this.', 'lsc-blocks') );
     }
 
-    $submitted = wp_unslash( $_POST[ LSCSettings::OPTION_NAME ][ $this->option_key ] ?? [] );
+    $submitted = wp_unslash( $_POST[ LSCSettings::OPTION_NAME ][ $this->option_key ] ?? [] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized immediately below via LSCAdminFieldHandler::sanitize()
     $sanitized = $this->field_handler->sanitize( $this->fields(), $submitted );
    
     // save the data

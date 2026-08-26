@@ -35,15 +35,19 @@ if ( empty($data) ) :
 endif;
 ?>
 
-<div <?php echo get_block_wrapper_attributes([
+<div <?php
+// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+echo get_block_wrapper_attributes([
   'class' => 'lsc-block-reviews lsc-reviews-mode-' . $display_mode,
-  'style' => implode(' ', $style_parts)
-]); ?>>
+  'style' => implode(' ', $style_parts),
+]);
+// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
+?>>
   <div class="lsc-reviews-summary">
     <div class="lsc-reviews-rating-wpr">
       <span class="lsc-reviews-rating"><?php echo esc_html( number_format_i18n($data['rating'], 1) ); ?></span>
       <span class="lsc-reviews-stars" aria-hidden="true">
-        <?php echo str_repeat('★', (int) round($data['rating'])) . str_repeat('☆', 5 - (int) round($data['rating'])); ?>
+        <?php echo esc_html( str_repeat('★', (int) round($data['rating'])) . str_repeat('☆', 5 - (int) round($data['rating'])) ); ?>
       </span>
       <span class="lsc-reviews-count">
         <?php
@@ -86,7 +90,7 @@ endif;
           <div class="lsc-review-header-text">
             <span class="lsc-review-author"><?php echo esc_html($review['author']); ?></span>
             <span class="lsc-review-stars" aria-hidden="true">
-              <?php echo str_repeat('★', (int) $review['rating']) . str_repeat('☆', 5 - (int) $review['rating']); ?>
+              <?php echo esc_html( str_repeat('★', (int) $review['rating']) . str_repeat('☆', 5 - (int) $review['rating']) ); ?>
             </span>
           </div>
         </div>

@@ -1,5 +1,7 @@
 <?php
-
+if( ! defined('ABSPATH')) :
+  exit;
+endif;
 ?>
 
 <div class="wrap">
@@ -7,7 +9,7 @@
 
   <?php if( $this->page_description ) : ?>
     <p class="description">
-      <?php echo esc_html__($this->page_description, 'lsc-blocks'); ?>
+      <?php echo esc_html($this->page_description); ?>
     </p>
   <?php endif; ?>
 

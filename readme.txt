@@ -4,7 +4,7 @@ Author: Luke Clifton
 Author URI: https://www.lscwebdesign.co.uk
 Tags: blocks, project block, faq, accordion
 Requires at least: 6.7
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 8.0
 Stable tag: 1.1.0
 License: GPLv2 or later
