@@ -2,7 +2,7 @@
 /**
  * Plugin Name: LSC Blocks
  * Description: Add custom Gutenberg blocks, including a dynamic Project Archive block.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Luke Clifton
  * Author URI: https://www.lscwebdesign.co.uk
  * Text Domain: lsc-blocks
