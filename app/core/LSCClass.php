@@ -44,14 +44,12 @@ if( ! class_exists('LSCClass') ) {
 
       $this->settings = new LSCSettings();
 
-      // Temporary location for calling admin settings
       new LSCBlockBindings($this->settings);
 
       new LSCAdminSettingsPage();
       new LSCAdminPageBusinessInfo();
 
-      // init plugin
-      add_action('init', [$this, 'init']);
+      new LSCBlockRegistrar($this->settings);
 
       // scripts inline injection
       add_action('wp_footer', [__CLASS__, 'add_inline_scripts']);
@@ -83,16 +81,6 @@ if( ! class_exists('LSCClass') ) {
     }
 
     /**
-     * Run on initilisation
-     * 
-     * @since 1.0.0
-     */
-    public function init() {
-      // add block manifest data 
-      $this->register_blocks();
-    }
-
-    /**
      * Run the controllers
      * 
      * @since 1.0.0
@@ -121,28 +109,6 @@ if( ! class_exists('LSCClass') ) {
     public static function controller( string $controller_class ) {
       return static::$instances[$controller_class] ?? null;
     }
-
-    /**
-     * Register blocks
-     * 
-     * @since 1.0.0
-     */
-    public function register_blocks() {
-      if ( function_exists( 'wp_register_block_metadata_collection' ) ) {
-        wp_register_block_metadata_collection( LSC_BLOCK_PATH . 'build', LSC_BLOCK_PATH . 'build/blocks-manifest.php' );
-      }
-
-      $disabled = $this->settings->get_path('general.disabled_blocks', []);
-
-      $manifest_data = require LSC_BLOCK_PATH . 'build/blocks-manifest.php';
-      foreach ( array_keys( $manifest_data ) as $block_type ) {
-        if( in_array( $block_type, (array) $disabled, true ) ) {
-          continue;
-        }
-        register_block_type( LSC_BLOCK_PATH . "build/{$block_type}" );
-      }
-    }
-
 
     /**
      * Scripts
