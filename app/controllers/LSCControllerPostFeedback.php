@@ -51,7 +51,7 @@ class LSCControllerPostFeedback extends LSCAbstractController {
   public function response( \WP_REST_Request $request ): \WP_REST_Response {
     $args = $this->request( $request );
     
-    return rest_ensure_request( $this->model->get( $args['post_id'] ) );
+    return rest_ensure_response( $this->model->get( $args['post_id'] ) );
   }
 
   public function count( int $post_id ): array {
