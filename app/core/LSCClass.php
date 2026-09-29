@@ -37,7 +37,7 @@ if( ! class_exists('LSCClass') ) {
     protected LSCSettings $settings;
 
     public function __construct() {
-      self::constants();
+      LSCConstants::register();
 
       // add controllers
       self::init_controllers();
@@ -53,31 +53,6 @@ if( ! class_exists('LSCClass') ) {
 
       // scripts inline injection
       add_action('wp_footer', [__CLASS__, 'add_inline_scripts']);
-    }
-
-    /**
-     * Set constants
-     * 
-     * @since 1.0.0
-     */
-    public static function constants() {
-      // absolute path
-      self::define( 'LSC_ABSPATH', trailingslashit(dirname(LSC_FILE)) );
-      // admin url
-      self::define( 'LSC_URL', self::plugin_url() );
-      // path to blocks
-      self::define( 'LSC_BLOCK_PATH', trailingslashit(LSC_ABSPATH . 'blocks') );
-      // path to views
-      self::define( 'LSC_VIEWS', trailingslashit(LSC_ABSPATH . 'app/views') );
-      self::define( 'LSC_ADMIN_PAGE_VIEWS', trailingslashit(LSC_ABSPATH . 'app/admin/pages/views') );
-      self::define( 'LSC_SETTINGS_VIEWS', trailingslashit(LSC_ABSPATH . 'app/admin/settings/views') );
-
-      // Routes
-      self::define( 'LSC_ROUTE_VERSION', 'v1' );
-      self::define( 'LSC_ROUTE_PATH', 'lsc-blocks' );
-
-      // Options
-      self::define( 'LSC_OPTIONS', 'lsc_blocks_options');
     }
 
     /**
@@ -125,27 +100,6 @@ if( ! class_exists('LSCClass') ) {
       // phpcs:ignore WordPress.Security.EscapeOutput
       printf('<script type="text/javascript">var LSC_API = %s</script>', $api_params);
     
-    }
-
-    /**
-     * Define the constant if it's not already set
-     * 
-     * @since 1.0.0
-     */
-    public static function define($name, $value) {
-      if( ! defined($name) ) {
-        define($name, $value); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-      }
-    }
-
-    /**
-     * Get the plugin url.
-     *
-     * @since 1.0.0
-     * @return string
-     */
-    public static function plugin_url() {
-      return trailingslashit( plugins_url( '/', LSC_FILE ) );
     }
 
   }
