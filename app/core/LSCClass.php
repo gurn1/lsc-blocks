@@ -52,7 +52,7 @@ if( ! class_exists('LSCClass') ) {
       new LSCBlockRegistrar($this->settings);
 
       // scripts inline injection
-      add_action('wp_footer', [__CLASS__, 'add_inline_scripts']);
+      new LSCApiScript();
     }
 
     /**
@@ -83,23 +83,6 @@ if( ! class_exists('LSCClass') ) {
      */
     public static function controller( string $controller_class ) {
       return static::$instances[$controller_class] ?? null;
-    }
-
-    /**
-     * Scripts
-     * 
-     * @since 1.0.0
-     */
-    public static function add_inline_scripts() {
-
-      $api_params = wp_json_encode([
-        'root' => esc_url_raw( rest_url( trailingslashit(LSC_ROUTE_PATH) . LSC_ROUTE_VERSION . '/' ) ),
-        'nonce' => sanitize_text_field(wp_create_nonce('wp_rest')),
-      ]);
-      
-      // phpcs:ignore WordPress.Security.EscapeOutput
-      printf('<script type="text/javascript">var LSC_API = %s</script>', $api_params);
-    
     }
 
   }
